@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C17E20AA-2F00-4871-8774-5082962C4D33}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>Iso2God</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Design" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Chilano\Xbox360\Iso\GDF.cs.old" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntry.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntryPlatform.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntryPadding.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntryPaddingRemoval.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntryID.cs" />
+    <Compile Include="Chilano\Iso2God\IsoEntryStatus.cs" />
+    <Compile Include="Chilano\Iso2God\Program.cs" />
+    <Compile Include="Chilano\Iso2God\Properties\Resources.cs" />
+    <Compile Include="Chilano\Iso2God\ConHeader\ConHeaderWriter.cs" />
+    <Compile Include="Chilano\Iso2God\Properties\Settings.cs" />
+    <Compile Include="Chilano\Iso2God\ConStructures\LiveHeader.cs" />
+    <Compile Include="Chilano\Iso2God\ConStructures\MasterHashtable.cs" />
+    <Compile Include="Chilano\Iso2God\ConStructures\SubHashTable.cs" />
+    <Compile Include="Chilano\Iso2God\ConStructures\ContentType.cs" />
+    <Compile Include="Chilano\Iso2God\Iso2God.cs" />
+    <Compile Include="Chilano\Iso2God\IsoDetailsArgs.cs" />
+    <Compile Include="Chilano\Iso2God\IsoDetailsResultsType.cs" />
+    <Compile Include="Chilano\Iso2God\IsoDetailsPlatform.cs" />
+    <Compile Include="Chilano\Iso2God\IsoDetailsResults.cs" />
+    <Compile Include="Chilano\Iso2God\IsoDetails.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexInfoFields.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexHeader.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexInfoField.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSSurfaceDesc2.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexCompressionInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeHeader.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeInitFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFStats.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexExecutionInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexSystemFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexResourceInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\XdbfTable.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\XdbfResource.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\XdbfResourceType.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\Xdbf.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDS.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeCertifcate.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeAllowedMedia.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeGameRegion.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFDirTable.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFRepack.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexOriginalName.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexCertifcateOffset.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexBaseFileFormat.cs" />
+    <Compile Include="Chilano\Xbox360\IO\CBinaryWriter.cs" />
+    <Compile Include="Chilano\Xbox360\IO\CBinaryReader.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSSurfaceDescriptionFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSPixelFormatFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSCaps1Flags.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSCaps2Flags.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSPixelFormatFourCC.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSType.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSCaps2.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexCodeOffset.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\DDSPixelFormat.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\XdbfHeader.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeSectionHeader.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeSectionFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFDirEntry.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\IsoType.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFVolumeDescriptor.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFDirEntryAttrib.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFStreamEntry.cs" />
+    <Compile Include="Chilano\Xbox360\IO\EndianType.cs" />
+    <Compile Include="Chilano\Xbox360\IO\DataType.cs" />
+    <Compile Include="Chilano\Xbox360\IO\DataConversion.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexModuleFlags.cs" />
+    <Compile Include="Chilano\Xbox360\Xdbf\XdbfTableEntry.cs" />
+    <Compile Include="Chilano\Xbox360\Xbe\XbeSection.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\GDFEntryNode.cs" />
+    <Compile Include="Chilano\Xbox360\Iso\AVLTree.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\XPRHeader.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexRatingsInfo.cs" />
+    <Compile Include="Chilano\Xbox360\Xex\XexBaseFileTimestamp.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\XPR.cs" />
+    <Compile Include="Chilano\Xbox360\Graphics\XPRFormat.cs" />
+    <EmbeddedResource Include="Chilano.Iso2God.AddISO.resources" />
+    <EmbeddedResource Include="Chilano.Iso2God.Properties.Resources.resources" />
+    <EmbeddedResource Include="Chilano.Iso2God.About.resources" />
+    <EmbeddedResource Include="Chilano.Iso2God.Main.resources" />
+    <EmbeddedResource Include="Chilano.Iso2God.Settings.resources" />
+    <EmbeddedResource Include="Chilano.Common.MultiPane.MultiPaneControl.bmp" />
+    <EmbeddedResource Include="Chilano.Common.MultiPane.MultiPanePage.bmp" />
+    <EmbeddedResource Include="EnterpriseDT.Net.Ftp.FTPConnection.resources" />
+  </ItemGroup>
+</Project>

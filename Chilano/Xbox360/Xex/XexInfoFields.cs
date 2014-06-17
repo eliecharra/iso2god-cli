@@ -1,0 +1,20 @@
+﻿namespace Chilano.Xbox360.Xex
+{
+    using System;
+
+    public enum XexInfoFields
+    {
+        CodeOffset,
+        CertifcateOffset,
+        ModuleFlags,
+        BaseFileFormat,
+        BaseFileTimestamp,
+        CompressionInfo,
+        ExecutionInfo,
+        OriginalName,
+        RatingsInfo,
+        ResourceInfo,
+        SystemFlags
+    }
+}
+

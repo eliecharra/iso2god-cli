@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace Chilano.Iso2God
 {
@@ -10,7 +11,7 @@ namespace Chilano.Iso2God
         [STAThread]
         private static void Main()
         {
-            Console.WriteLine("Iso2god-cli v1.3.6 - Team Executer");
+           Console.WriteLine("Iso2god-cli " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion + " - " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).LegalCopyright);
             Console.WriteLine("Ported to CLI by Elie CHARRA <elie [dot] charra [at] gmail.com>");
             Console.WriteLine("Usage : iso2god <source iso> <destination folder>");
             Console.WriteLine("");

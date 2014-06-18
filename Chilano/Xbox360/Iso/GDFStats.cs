@@ -40,7 +40,7 @@
 
         public void SetPixel(uint Sector, GDFSectorStatus Status)
         {
-            int y = (int) Math.Floor((double) (((double) Sector) / ((double) Bmp.Width)));
+            int y = (int) Math.Floor(Sector / ((double) Bmp.Width));
             int x = ((int) Sector) - (Bmp.Width * y);
             Bmp.SetPixel(x, y, Color.FromArgb((int) Status));
         }

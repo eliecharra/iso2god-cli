@@ -62,7 +62,7 @@
         {
             string str = "";
             object obj2 = str;
-            return ((((string.Concat(new object[] { obj2, "XDFDirEntry '", Name, "' at Sector: ", Sector, ", Size: {2}\n" }) + "---------------------------------------------------\n") + "STL = " + SubTreeL.ToString()) + "\nSTR = " + SubTreeR.ToString()) + "\nAtt = " + Attributes.ToString() + "\n\n");
+            return ((((string.Concat(new[] { obj2, "XDFDirEntry '", Name, "' at Sector: ", Sector, ", Size: {2}\n" }) + "---------------------------------------------------\n") + "STL = " + SubTreeL.ToString()) + "\nSTR = " + SubTreeR.ToString()) + "\nAtt = " + Attributes.ToString() + "\n\n");
         }
 
         public uint EntrySize

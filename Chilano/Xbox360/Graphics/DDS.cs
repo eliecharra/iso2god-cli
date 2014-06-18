@@ -68,8 +68,8 @@
 
         private void blockDecompressImageDXT1(ulong width, ulong height, byte[] data, Image img)
         {
-            ulong num = (width + ((ulong) 3L)) / ((ulong) 4L);
-            ulong num2 = (height + ((ulong) 3L)) / ((ulong) 4L);
+            ulong num = (width + 3L) / 4L;
+            ulong num2 = (height + 3L) / 4L;
             long sourceIndex = 0L;
             for (ulong i = 0L; i < num2; i += (ulong) 1L)
             {
@@ -78,7 +78,7 @@
                     byte[] destinationArray = new byte[8];
                     Array.Copy(data, sourceIndex, destinationArray, 0L, 8L);
                     sourceIndex += 8L;
-                    decompressBlockDXT1(j * ((ulong) 4L), i * ((ulong) 4L), width, destinationArray, img);
+                    decompressBlockDXT1(j * 4L, i * 4L, width, destinationArray, img);
                 }
             }
         }
@@ -88,24 +88,24 @@
             ushort num = BitConverter.ToUInt16(blockStorage, 0);
             ushort num2 = BitConverter.ToUInt16(blockStorage, 2);
             ulong num3 = (ulong) (((num >> 11) * 0xff) + 0x10);
-            byte r = (byte) (((num3 / ((ulong) 0x20L)) + num3) / ((ulong) 0x20L));
+            byte r = (byte) (((num3 / 0x20L) + num3) / 0x20L);
             num3 = (ulong) ((((num & 0x7e0) >> 5) * 0xff) + 0x20);
-            byte g = (byte) (((num3 / ((ulong) 0x40L)) + num3) / ((ulong) 0x40L));
+            byte g = (byte) (((num3 / 0x40L) + num3) / 0x40L);
             num3 = (ulong) (((num & 0x1f) * 0xff) + 0x10);
-            byte b = (byte) (((num3 / ((ulong) 0x20L)) + num3) / ((ulong) 0x20L));
+            byte b = (byte) (((num3 / 0x20L) + num3) / 0x20L);
             num3 = (ulong) (((num2 >> 11) * 0xff) + 0x10);
-            byte num7 = (byte) (((num3 / ((ulong) 0x20L)) + num3) / ((ulong) 0x20L));
+            byte num7 = (byte) (((num3 / 0x20L) + num3) / 0x20L);
             num3 = (ulong) ((((num2 & 0x7e0) >> 5) * 0xff) + 0x20);
-            byte num8 = (byte) (((num3 / ((ulong) 0x40L)) + num3) / ((ulong) 0x40L));
+            byte num8 = (byte) (((num3 / 0x40L) + num3) / 0x40L);
             num3 = (ulong) (((num2 & 0x1f) * 0xff) + 0x10);
-            byte num9 = (byte) (((num3 / ((ulong) 0x20L)) + num3) / ((ulong) 0x20L));
+            byte num9 = (byte) (((num3 / 0x20L) + num3) / 0x20L);
             ulong num10 = BitConverter.ToUInt32(blockStorage, 4);
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
                     Color color = new Color();
-                    byte num13 = (byte) ((num10 >> (2 * ((4 * i) + j))) & ((ulong) 3L));
+                    byte num13 = (byte) ((num10 >> (2 * ((4 * i) + j))) & 3L);
                     if (num > num2)
                     {
                         switch (num13)

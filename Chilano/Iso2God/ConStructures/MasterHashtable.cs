@@ -26,7 +26,7 @@
                 {
                     break;
                 }
-                base.Add(item);
+                Add(item);
             }
         }
 
@@ -40,7 +40,7 @@
             }
             foreach (byte[] buffer2 in this)
             {
-                buffer2.CopyTo(array, (long) num);
+                buffer2.CopyTo(array, num);
                 num += 20;
             }
             return array;

@@ -29,7 +29,7 @@
             {
                 if ((entry.Identifier == Signature) && (entry.Type == Type))
                 {
-                    br.Seek((long) (dataOffset + entry.Offset), SeekOrigin.Begin);
+                    br.Seek(dataOffset + entry.Offset, SeekOrigin.Begin);
                     return br.ReadBytes((int) entry.Size);
                 }
             }

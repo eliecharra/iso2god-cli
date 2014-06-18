@@ -13,14 +13,14 @@
 
         public XexModuleFlags(uint Address) : base(Address)
         {
-            base.Flags = true;
+            Flags = true;
         }
 
         public bool DeltaPatch
         {
             get
             {
-                return ((base.Address & 1) == 0x40);
+                return ((Address & 1) == 0x40);
             }
         }
 
@@ -28,7 +28,7 @@
         {
             get
             {
-                return ((base.Address & 8) == 8);
+                return ((Address & 8) == 8);
             }
         }
 
@@ -36,7 +36,7 @@
         {
             get
             {
-                return ((base.Address & 2) == 2);
+                return ((Address & 2) == 2);
             }
         }
 
@@ -44,7 +44,7 @@
         {
             get
             {
-                return ((base.Address & 1) == 0x20);
+                return ((Address & 1) == 0x20);
             }
         }
 
@@ -52,7 +52,7 @@
         {
             get
             {
-                return ((base.Address & 0x10) == 0x10);
+                return ((Address & 0x10) == 0x10);
             }
         }
 
@@ -60,7 +60,7 @@
         {
             get
             {
-                return ((base.Address & 4) == 4);
+                return ((Address & 4) == 4);
             }
         }
 
@@ -68,7 +68,7 @@
         {
             get
             {
-                return ((base.Address & 1) == 1);
+                return ((Address & 1) == 1);
             }
         }
 
@@ -76,7 +76,7 @@
         {
             get
             {
-                return ((base.Address & 1) == 0x80);
+                return ((Address & 1) == 0x80);
             }
         }
     }

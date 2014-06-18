@@ -11,7 +11,7 @@
             b.Seek(30L, SeekOrigin.Begin);
             for (int i = 0; i < header.NumEntries; i++)
             {
-                base.Add(new XdbfTableEntry(b));
+                Add(new XdbfTableEntry(b));
             }
             while (b.PeekChar() == 0)
             {

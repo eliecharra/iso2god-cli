@@ -31,7 +31,7 @@
 
         public override void Parse(CBinaryReader br)
         {
-            br.Seek((long) base.Address, SeekOrigin.Begin);
+            br.Seek(Address, SeekOrigin.Begin);
             br.Endian = EndianType.BigEndian;
             MediaID = br.ReadBytes(4);
             Version = br.ReadUInt32();

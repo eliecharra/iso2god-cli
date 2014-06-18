@@ -13,7 +13,7 @@
 
         public XexSystemFlags(uint Address) : base(Address)
         {
-            base.Flags = true;
+            Flags = true;
         }
     }
 }

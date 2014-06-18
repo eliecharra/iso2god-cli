@@ -23,7 +23,7 @@
         {
             this.Sector = Sector;
             this.Size = Size;
-            File.Seek((long) ((Sector * Vol.SectorSize) + Vol.RootOffset), SeekOrigin.Begin);
+            File.Seek((Sector * Vol.SectorSize) + Vol.RootOffset, SeekOrigin.Begin);
             byte[] buffer = File.ReadBytes((int) Size);
             MemoryStream s = new MemoryStream(buffer);
             CBinaryReader reader = new CBinaryReader(EndianType.LittleEndian, s);
@@ -42,12 +42,12 @@
                         item.Attributes = (GDFDirEntryAttrib) reader.ReadByte();
                         item.NameLength = reader.ReadByte();
                         item.Name = Encoding.ASCII.GetString(buffer, (int) s.Position, item.NameLength);
-                        s.Seek((long) item.NameLength, SeekOrigin.Current);
+                        s.Seek(item.NameLength, SeekOrigin.Current);
                        if ((s.Position % 4L) != 0L)
                         {
                             s.Seek(4L - (s.Position % 4L), SeekOrigin.Current);
                         }
-                        base.Add(item);
+                        Add(item);
                     }
                 }
             }
@@ -71,7 +71,7 @@
             Size = num;
             if (Parent != null)
             {
-                Parent.Size = (uint) (Math.Ceiling((double) (((double) Size) / 2048.0)) * 2048.0);
+                Parent.Size = (uint) (Math.Ceiling(Size / 2048.0) * 2048.0);
             }
         }
 
@@ -92,15 +92,15 @@
 
         public void CreateBST()
         {
-            if (base.Count == 0)
+            if (Count == 0)
             {
                 Size = 0;
                 Sector = 0;
             }
             else
             {
-                base.Sort();
-                GDFDirEntry entry = base[(int) Math.Floor((double) (((double) base.Count) / 2.0))];
+                Sort();
+                GDFDirEntry entry = base[(int) Math.Floor(Count / 2.0)];
                 Tree.Insert(entry);
                 List<GDFDirEntry> list = new List<GDFDirEntry>();
                 foreach (GDFDirEntry entry2 in this)
@@ -120,7 +120,7 @@
 
         public byte[] ToByteArray()
         {
-            byte[] buffer = new byte[(int) (Math.Ceiling((double) (((double) Size) / 2048.0)) * 2048.0)];
+            byte[] buffer = new byte[(int) (Math.Ceiling(Size / 2048.0) * 2048.0)];
             MemoryStream stream = new MemoryStream(buffer);
             for (int i = 0; i < buffer.Length; i++)
             {

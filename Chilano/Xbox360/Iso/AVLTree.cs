@@ -26,11 +26,11 @@
             if (Root != null)
             {
                 object obj2 = str;
-                str = string.Concat(new object[] { obj2, "Root = ", Root.Key, "," });
+                str = string.Concat(new[] { obj2, "Root = ", Root.Key, "," });
                 if (Root.Left != null)
                 {
                     object obj3 = str;
-                    str = string.Concat(new object[] { obj3, "Root.Left = ", Root.Left.Key, "," });
+                    str = string.Concat(new[] { obj3, "Root.Left = ", Root.Left.Key, "," });
                 }
                 if (Root.Right != null)
                 {

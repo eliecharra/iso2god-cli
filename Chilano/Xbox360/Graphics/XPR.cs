@@ -53,7 +53,7 @@
 
         private void readImageData(CBinaryReader br)
         {
-            br.Seek((long) Header.HeaderSize, SeekOrigin.Begin);
+            br.Seek(Header.HeaderSize, SeekOrigin.Begin);
             int count = (int) (Header.FileSize - Header.HeaderSize);
             Image = new byte[count];
             Image = br.ReadBytes(count);
@@ -79,7 +79,7 @@
                 {
                     return -1;
                 }
-                return (int) Math.Pow(2.0, (double) Header.TextureRes2);
+                return (int) Math.Pow(2.0, Header.TextureRes2);
             }
         }
 
@@ -103,7 +103,7 @@
                 {
                     return -1;
                 }
-                return (int) Math.Pow(2.0, (double) Header.TextureRes2);
+                return (int) Math.Pow(2.0, Header.TextureRes2);
             }
         }
     }

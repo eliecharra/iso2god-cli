@@ -20,9 +20,9 @@
             Header = new XbeHeader(br);
             if (Header.IsValid)
             {
-                br.Seek((long) (Header.CertificateAddress - Header.BaseAddress), SeekOrigin.Begin);
+                br.Seek(Header.CertificateAddress - Header.BaseAddress, SeekOrigin.Begin);
                 Certifcate = new XbeCertifcate(br);
-                br.Seek((long) (Header.SectionHeadersAddress - Header.BaseAddress), SeekOrigin.Begin);
+                br.Seek(Header.SectionHeadersAddress - Header.BaseAddress, SeekOrigin.Begin);
                 for (uint i = 0; i < Header.NumberOfSections; i++)
                 {
                     Sections.Add(new XbeSection(br));

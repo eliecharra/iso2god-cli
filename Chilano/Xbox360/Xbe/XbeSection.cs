@@ -21,12 +21,12 @@
 
         public void Read(CBinaryReader br, uint BaseAddress)
         {
-            br.Seek((long) (Header.SectionNameAddress - BaseAddress), SeekOrigin.Begin);
+            br.Seek(Header.SectionNameAddress - BaseAddress, SeekOrigin.Begin);
             while (br.PeekChar() != 0)
             {
                 Name = Name + br.ReadChar();
             }
-            br.Seek((long) Header.RawAddress, SeekOrigin.Begin);
+            br.Seek(Header.RawAddress, SeekOrigin.Begin);
             Data = br.ReadBytes((int) Header.RawSize);
         }
     }

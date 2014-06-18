@@ -34,7 +34,7 @@
 
         private void calcSectors(GDFDirTable table, GDFStats stats)
         {
-            stats.UsedDirSectors += (uint) Math.Ceiling((double) (((double) table.Size) / ((double) stats.SectorSize)));
+            stats.UsedDirSectors += (uint) Math.Ceiling(table.Size / ((double) stats.SectorSize));
             stats.TotalDirs++;
             foreach (GDFDirEntry entry in table)
             {
@@ -49,7 +49,7 @@
                 }
                 else
                 {
-                    uint num = (uint) Math.Ceiling((double) (((double) entry.Size) / ((double) stats.SectorSize)));
+                    uint num = (uint) Math.Ceiling(entry.Size / ((double) stats.SectorSize));
                     stats.TotalFiles++;
                     stats.UsedDataSectors += num;
                     stats.DataBytes += entry.Size;
@@ -140,7 +140,7 @@
                 {
                     if (entry.Name.ToLower() == str.ToLower())
                     {
-                        fr.Seek((long) (volDesc.RootOffset + (entry.Sector * volDesc.SectorSize)), SeekOrigin.Begin);
+                        fr.Seek(volDesc.RootOffset + (entry.Sector * volDesc.SectorSize), SeekOrigin.Begin);
                         return fr.ReadBytes((int) entry.Size);
                     }
                 }
@@ -182,7 +182,7 @@
                 string[] strArray = new string[1];
                 if (Path.Contains(@"\"))
                 {
-                    strArray = Path.Split(new char[] { '\\' });
+                    strArray = Path.Split(new[] { '\\' });
                 }
                 else
                 {
@@ -223,7 +223,7 @@
                 {
                     if (entry.Sector >= lastSector)
                     {
-                        lastSector = entry.Sector + ((uint) Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize))));
+                        lastSector = entry.Sector + ((uint) Math.Ceiling(entry.Size / ((double) volDesc.SectorSize)));
                     }
                     if (entry.IsDirectory)
                     {
@@ -251,7 +251,7 @@
         {
             volDesc = new GDFVolumeDescriptor();
             volDesc.SectorSize = 0x800;
-            fr.Seek((long) (0x20 * volDesc.SectorSize), SeekOrigin.Begin);
+            fr.Seek(0x20 * volDesc.SectorSize, SeekOrigin.Begin);
             if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
             {
                 type = IsoType.Xsf;
@@ -259,7 +259,7 @@
             }
             else
             {
-                file.Seek((long) ((0x20 * volDesc.SectorSize) + 0xfd90000), SeekOrigin.Begin);
+                file.Seek((0x20 * volDesc.SectorSize) + 0xfd90000, SeekOrigin.Begin);
                 if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
                 {
                     type = IsoType.Gdf;
@@ -271,13 +271,13 @@
                     volDesc.RootOffset = (uint) type;
                 }
             }
-            file.Seek((long) ((0x20 * volDesc.SectorSize) + volDesc.RootOffset), SeekOrigin.Begin);
+            file.Seek((0x20 * volDesc.SectorSize) + volDesc.RootOffset, SeekOrigin.Begin);
             volDesc.Identifier = fr.ReadBytes(20);
             volDesc.RootDirSector = fr.ReadUInt32();
             volDesc.RootDirSize = fr.ReadUInt32();
             volDesc.ImageCreationTime = fr.ReadBytes(8);
             volDesc.VolumeSize = (ulong) (fr.BaseStream.Length - volDesc.RootOffset);
-            volDesc.VolumeSectors = (uint) (volDesc.VolumeSize / ((ulong) volDesc.SectorSize));
+            volDesc.VolumeSectors = (uint) (volDesc.VolumeSize / volDesc.SectorSize);
         }
 
         public void SaveFileSystem(FileStream File)
@@ -304,7 +304,7 @@
                 }
                 else
                 {
-                    file.WriteLine(string.Concat(new object[] { entry.Sector, "\t\t", entry.Size, "\t\t", Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize))), "\t\t", entry.Name }));
+                    file.WriteLine(string.Concat(new object[] { entry.Sector, "\t\t", entry.Size, "\t\t", Math.Ceiling(entry.Size / ((double) volDesc.SectorSize)), "\t\t", entry.Name }));
                 }
             }
         }
@@ -319,8 +319,8 @@
                 {
                     if (entry.Name.ToLower() == str.ToLower())
                     {
-                        fr.Seek((long) (volDesc.RootOffset + (entry.Sector * volDesc.SectorSize)), SeekOrigin.Begin);
-                        uint num = (uint) Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize)));
+                        fr.Seek(volDesc.RootOffset + (entry.Sector * volDesc.SectorSize), SeekOrigin.Begin);
+                        uint num = (uint) Math.Ceiling(entry.Size / ((double) volDesc.SectorSize));
                         long num2 = 0L;
                         for (uint i = 0; i < num; i++)
                         {
@@ -342,7 +342,7 @@
                             }
                             num2 += volDesc.SectorSize;
                         }
-                        return (long) entry.Size;
+                        return entry.Size;
                     }
                 }
             }

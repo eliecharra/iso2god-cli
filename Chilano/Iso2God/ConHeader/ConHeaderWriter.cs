@@ -73,7 +73,7 @@
             bw.WriteUint32(NumberParts);
             bw.Seek(0x3a4L, SeekOrigin.Begin);
             bw.Endian = EndianType.BigEndian;
-            bw.WriteUint32((uint) (SizeOfDataParts / ((ulong) 0x100L)));
+            bw.WriteUint32((uint) (SizeOfDataParts / 0x100L));
         }
 
         public void WriteExecutionDetails(byte DiscNumber, byte DiscCount, byte Platform, byte ExType)

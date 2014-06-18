@@ -25,24 +25,18 @@ namespace Chilano.Iso2God
 
         public IsoDetailsResults IsoDetails_DoWork()
         {
-            if (openIso())
+           if (openIso())
             {
-                if (iso.Exists("default.xex"))
+               if (iso.Exists("default.xex"))
                 {
                     return readXex();
                 }
-                else
-                {
-                    throw new Exception("Could not locate default.xex.");
-                }
+               throw new Exception("Could not locate default.xex.");
             }
-            else
-            {
-                throw new Exception("Could not open iso file.");
-            }
+           throw new Exception("Could not open iso file.");
         }
 
-        private bool openIso()
+       private bool openIso()
         {
             try
             {
@@ -125,7 +119,7 @@ namespace Chilano.Iso2God
                     Xdbf xdbf = new Xdbf(File.ReadAllBytes(pathTemp + results.TitleID));                    
                     try
                     {
-                        MemoryStream stream3 = new MemoryStream(xdbf.GetResource(1, (ushort) 3));
+                        MemoryStream stream3 = new MemoryStream(xdbf.GetResource(1, 3));
                         stream3.Seek(0x11L, SeekOrigin.Begin);
                         int count = stream3.ReadByte();
                         results.Name = Encoding.UTF8.GetString(stream3.ToArray(), 0x12, count);
@@ -135,7 +129,7 @@ namespace Chilano.Iso2God
                     {
                         try
                         {
-                            MemoryStream stream4 = new MemoryStream(xdbf.GetResource(1, (ushort) 0));
+                            MemoryStream stream4 = new MemoryStream(xdbf.GetResource(1, 0));
                             stream4.Seek(0x11L, SeekOrigin.Begin);
                             int num2 = stream4.ReadByte();
                             results.Name = Encoding.UTF8.GetString(stream4.ToArray(), 0x12, num2);

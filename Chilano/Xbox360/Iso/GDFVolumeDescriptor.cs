@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Xbox360.Iso
 {
-    using System;
-    using System.Runtime.InteropServices;
+   using System.Runtime.InteropServices;
 
     [StructLayout(LayoutKind.Sequential)]
     public struct GDFVolumeDescriptor

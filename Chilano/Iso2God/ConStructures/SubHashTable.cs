@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Iso2God.ConStructures
 {
-    using System;
-    using System.Collections.Generic;
+   using System.Collections.Generic;
     using System.IO;
 
     public class SubHashTable : List<byte[]>

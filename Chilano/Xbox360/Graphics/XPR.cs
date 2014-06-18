@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
     using System.IO;
 
@@ -15,18 +15,18 @@
 
         public XPR(CBinaryReader br)
         {
-            this.init(br);
+            init(br);
         }
 
         public XPR(byte[] data)
         {
-            this.init(new CBinaryReader(EndianType.LittleEndian, new MemoryStream(data)));
+            init(new CBinaryReader(EndianType.LittleEndian, new MemoryStream(data)));
         }
 
         public DDS ConvertToDDS(int Width, int Height)
         {
             DDS dds = new DDS(DDSType.ARGB);
-            switch (this.Format)
+            switch (Format)
             {
                 case XPRFormat.ARGB:
                     dds = new DDS(DDSType.ARGB);
@@ -37,37 +37,37 @@
                     break;
             }
             dds.SetDetails(Height, Width, 1);
-            dds.Data = this.Image;
+            dds.Data = Image;
             return dds;
         }
 
         private void init(CBinaryReader br)
         {
             br.Seek(0L, SeekOrigin.Begin);
-            this.Header = new XPRHeader(br);
-            if (this.IsValid)
+            Header = new XPRHeader(br);
+            if (IsValid)
             {
-                this.readImageData(br);
+                readImageData(br);
             }
         }
 
         private void readImageData(CBinaryReader br)
         {
-            br.Seek((long) this.Header.HeaderSize, SeekOrigin.Begin);
-            int count = (int) (this.Header.FileSize - this.Header.HeaderSize);
-            this.Image = new byte[count];
-            this.Image = br.ReadBytes(count);
+            br.Seek((long) Header.HeaderSize, SeekOrigin.Begin);
+            int count = (int) (Header.FileSize - Header.HeaderSize);
+            Image = new byte[count];
+            Image = br.ReadBytes(count);
         }
 
         public XPRFormat Format
         {
             get
             {
-                if (this.Header == null)
+                if (Header == null)
                 {
                     return XPRFormat.None;
                 }
-                return (XPRFormat) this.Header.TextureFormat;
+                return (XPRFormat) Header.TextureFormat;
             }
         }
 
@@ -75,11 +75,11 @@
         {
             get
             {
-                if (this.Header == null)
+                if (Header == null)
                 {
                     return -1;
                 }
-                return (int) Math.Pow(2.0, (double) this.Header.TextureRes2);
+                return (int) Math.Pow(2.0, (double) Header.TextureRes2);
             }
         }
 
@@ -87,11 +87,11 @@
         {
             get
             {
-                if (this.Header == null)
+                if (Header == null)
                 {
                     return false;
                 }
-                return this.Header.IsValid;
+                return Header.IsValid;
             }
         }
 
@@ -99,11 +99,11 @@
         {
             get
             {
-                if (this.Header == null)
+                if (Header == null)
                 {
                     return -1;
                 }
-                return (int) Math.Pow(2.0, (double) this.Header.TextureRes2);
+                return (int) Math.Pow(2.0, (double) Header.TextureRes2);
             }
         }
     }

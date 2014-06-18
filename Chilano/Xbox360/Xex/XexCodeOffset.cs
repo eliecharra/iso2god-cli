@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xex
 {
-    using System;
-
-    public class XexCodeOffset : XexInfoField
+   public class XexCodeOffset : XexInfoField
     {
         public static byte[] Signature;
 

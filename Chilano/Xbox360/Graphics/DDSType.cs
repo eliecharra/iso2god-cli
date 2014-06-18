@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using System;
-
-    public enum DDSType
+   public enum DDSType
     {
         DXT1,
         DXT1a,

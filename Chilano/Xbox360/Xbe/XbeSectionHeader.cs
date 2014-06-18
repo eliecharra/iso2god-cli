@@ -1,9 +1,8 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
 
-    public class XbeSectionHeader
+   public class XbeSectionHeader
     {
         public XbeSectionFlags Flags;
         public uint HeadSharedPageRefCountAddress;
@@ -18,23 +17,23 @@
 
         public XbeSectionHeader()
         {
-            this.SectionDigest = new byte[20];
+            SectionDigest = new byte[20];
         }
 
         public XbeSectionHeader(CBinaryReader bw)
         {
-            this.SectionDigest = new byte[20];
+            SectionDigest = new byte[20];
             bw.Endian = EndianType.LittleEndian;
-            this.Flags = (XbeSectionFlags) bw.ReadUInt32();
-            this.VirtualAddress = bw.ReadUInt32();
-            this.VirtualSize = bw.ReadUInt32();
-            this.RawAddress = bw.ReadUInt32();
-            this.RawSize = bw.ReadUInt32();
-            this.SectionNameAddress = bw.ReadUInt32();
-            this.SectionNameRefCount = bw.ReadUInt32();
-            this.HeadSharedPageRefCountAddress = bw.ReadUInt32();
-            this.TailSharedPageRefCountAddress = bw.ReadUInt32();
-            this.SectionDigest = bw.ReadBytes(20);
+            Flags = (XbeSectionFlags) bw.ReadUInt32();
+            VirtualAddress = bw.ReadUInt32();
+            VirtualSize = bw.ReadUInt32();
+            RawAddress = bw.ReadUInt32();
+            RawSize = bw.ReadUInt32();
+            SectionNameAddress = bw.ReadUInt32();
+            SectionNameRefCount = bw.ReadUInt32();
+            HeadSharedPageRefCountAddress = bw.ReadUInt32();
+            TailSharedPageRefCountAddress = bw.ReadUInt32();
+            SectionDigest = bw.ReadBytes(20);
         }
     }
 }

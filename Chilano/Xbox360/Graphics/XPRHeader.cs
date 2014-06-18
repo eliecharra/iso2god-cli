@@ -1,9 +1,8 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
 
-    public class XPRHeader
+   public class XPRHeader
     {
         public uint FileSize;
         public uint HeaderSize;
@@ -24,19 +23,19 @@
         public XPRHeader(CBinaryReader br)
         {
             br.Endian = EndianType.LittleEndian;
-            this.MagicBytes = br.ReadUInt32();
-            if (this.MagicBytes == 0x30525058)
+            MagicBytes = br.ReadUInt32();
+            if (MagicBytes == 0x30525058)
             {
-                this.FileSize = br.ReadUInt32();
-                this.HeaderSize = br.ReadUInt32();
-                this.TextureCommon = br.ReadUInt32();
-                this.TextureData = br.ReadUInt32();
-                this.TextureLock = br.ReadUInt32();
-                this.TextureMisc1 = br.ReadByte();
-                this.TextureFormat = br.ReadByte();
-                this.TextureRes1 = br.ReadByte();
-                this.TextureRes2 = br.ReadByte();
-                this.IsValid = true;
+                FileSize = br.ReadUInt32();
+                HeaderSize = br.ReadUInt32();
+                TextureCommon = br.ReadUInt32();
+                TextureData = br.ReadUInt32();
+                TextureLock = br.ReadUInt32();
+                TextureMisc1 = br.ReadByte();
+                TextureFormat = br.ReadByte();
+                TextureRes1 = br.ReadByte();
+                TextureRes2 = br.ReadByte();
+                IsValid = true;
             }
         }
     }

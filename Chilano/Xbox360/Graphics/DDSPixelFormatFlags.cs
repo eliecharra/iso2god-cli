@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using System;
-
-    public enum DDSPixelFormatFlags : uint
+   public enum DDSPixelFormatFlags : uint
     {
         DDPF_ALPHAPIXELS = 1,
         DDPF_FOURCC = 4,

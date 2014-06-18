@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Iso2God
 {
-    using System;
-
-    public class IsoEntryID
+   public class IsoEntryID
     {
         public string ContainerID;
         public byte DiscCount;

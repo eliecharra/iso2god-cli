@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
 
     public class XbeHeader
@@ -43,37 +43,37 @@
             {
                 if (br.ReadUInt32() == 0x48454258)
                 {
-                    this.DigitalSignature = br.ReadBytes(0x100);
-                    this.BaseAddress = br.ReadUInt32();
-                    this.SizeOfHeaders = br.ReadUInt32();
-                    this.SizeOfImage = br.ReadUInt32();
-                    this.SizeOfImageHeader = br.ReadUInt32();
-                    this.TimeDate = br.ReadBytes(4);
-                    this.CertificateAddress = br.ReadUInt32();
-                    this.NumberOfSections = br.ReadUInt32();
-                    this.SectionHeadersAddress = br.ReadUInt32();
-                    this.InitialisationFlags = (XbeInitFlags) br.ReadUInt32();
-                    this.EntryPoint = br.ReadUInt32();
-                    this.TLSAddress = br.ReadUInt32();
-                    this.PEStackCommit = br.ReadUInt32();
-                    this.PEHeapReserve = br.ReadUInt32();
-                    this.PEHeapCommit = br.ReadUInt32();
-                    this.PEBaseAddress = br.ReadUInt32();
-                    this.PESizeOfImage = br.ReadUInt32();
-                    this.PEChecksum = br.ReadUInt32();
-                    this.PETimeDate = br.ReadBytes(4);
-                    this.DebugPathnameAddress = br.ReadUInt32();
-                    this.DebugFilenameAddress = br.ReadUInt32();
-                    this.DebugUnicodeFilenameAddress = br.ReadUInt32();
-                    this.KernelImageThunkAddress = br.ReadUInt32();
-                    this.NonKernelImportDirectoryAddress = br.ReadUInt32();
-                    this.NumberOfLibraryVersions = br.ReadUInt32();
-                    this.LibraryVersionsAddress = br.ReadUInt32();
-                    this.KernelLibraryVersionAddress = br.ReadUInt32();
-                    this.XAPILibraryVersionAddress = br.ReadUInt32();
-                    this.LogoBitmapAddress = br.ReadUInt32();
-                    this.LogoBitmapSize = br.ReadUInt32();
-                    this.IsValid = true;
+                    DigitalSignature = br.ReadBytes(0x100);
+                    BaseAddress = br.ReadUInt32();
+                    SizeOfHeaders = br.ReadUInt32();
+                    SizeOfImage = br.ReadUInt32();
+                    SizeOfImageHeader = br.ReadUInt32();
+                    TimeDate = br.ReadBytes(4);
+                    CertificateAddress = br.ReadUInt32();
+                    NumberOfSections = br.ReadUInt32();
+                    SectionHeadersAddress = br.ReadUInt32();
+                    InitialisationFlags = (XbeInitFlags) br.ReadUInt32();
+                    EntryPoint = br.ReadUInt32();
+                    TLSAddress = br.ReadUInt32();
+                    PEStackCommit = br.ReadUInt32();
+                    PEHeapReserve = br.ReadUInt32();
+                    PEHeapCommit = br.ReadUInt32();
+                    PEBaseAddress = br.ReadUInt32();
+                    PESizeOfImage = br.ReadUInt32();
+                    PEChecksum = br.ReadUInt32();
+                    PETimeDate = br.ReadBytes(4);
+                    DebugPathnameAddress = br.ReadUInt32();
+                    DebugFilenameAddress = br.ReadUInt32();
+                    DebugUnicodeFilenameAddress = br.ReadUInt32();
+                    KernelImageThunkAddress = br.ReadUInt32();
+                    NonKernelImportDirectoryAddress = br.ReadUInt32();
+                    NumberOfLibraryVersions = br.ReadUInt32();
+                    LibraryVersionsAddress = br.ReadUInt32();
+                    KernelLibraryVersionAddress = br.ReadUInt32();
+                    XAPILibraryVersionAddress = br.ReadUInt32();
+                    LogoBitmapAddress = br.ReadUInt32();
+                    LogoBitmapSize = br.ReadUInt32();
+                    IsValid = true;
                 }
             }
             catch (Exception)

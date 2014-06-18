@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Iso
 {
-    using System;
-
-    public class GDFStreamEntry
+   public class GDFStreamEntry
     {
         public GDFDirEntry Entry;
         public string Path;
@@ -17,11 +15,11 @@
         {
             get
             {
-                return this.Entry.Sector;
+                return Entry.Sector;
             }
             set
             {
-                this.Entry.Sector = value;
+                Entry.Sector = value;
             }
         }
 
@@ -29,7 +27,7 @@
         {
             get
             {
-                return this.Entry.Size;
+                return Entry.Size;
             }
         }
     }

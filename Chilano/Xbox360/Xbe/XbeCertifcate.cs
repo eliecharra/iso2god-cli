@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
     using System.Text;
 
     public class XbeCertifcate
@@ -22,26 +21,26 @@
 
         public XbeCertifcate(CBinaryReader br)
         {
-            this.Size = br.ReadUInt32();
-            this.TimeData = br.ReadBytes(4);
-            this.titleID = br.ReadUInt32();
-            this.titleName = br.ReadBytes(80);
-            this.AltTitleIDs = br.ReadBytes(0x40);
-            this.AllowedMedia = (XbeAllowedMedia) br.ReadUInt32();
-            this.GameRegion = (XbeGameRegion) br.ReadUInt32();
-            this.GameRatings = br.ReadUInt32();
-            this.DiskNumber = br.ReadUInt32();
-            this.Version = br.ReadUInt32();
-            this.LanKey = br.ReadBytes(0x10);
-            this.SignatureKey = br.ReadBytes(0x10);
-            this.AltSignatureKeys = br.ReadBytes(0x100);
+            Size = br.ReadUInt32();
+            TimeData = br.ReadBytes(4);
+            titleID = br.ReadUInt32();
+            titleName = br.ReadBytes(80);
+            AltTitleIDs = br.ReadBytes(0x40);
+            AllowedMedia = (XbeAllowedMedia) br.ReadUInt32();
+            GameRegion = (XbeGameRegion) br.ReadUInt32();
+            GameRatings = br.ReadUInt32();
+            DiskNumber = br.ReadUInt32();
+            Version = br.ReadUInt32();
+            LanKey = br.ReadBytes(0x10);
+            SignatureKey = br.ReadBytes(0x10);
+            AltSignatureKeys = br.ReadBytes(0x100);
         }
 
         public string TitleID
         {
             get
             {
-                return this.titleID.ToString("X02");
+                return titleID.ToString("X02");
             }
         }
 
@@ -49,11 +48,11 @@
         {
             get
             {
-                if (this.titleName == null)
+                if (titleName == null)
                 {
                     return "";
                 }
-                return Encoding.Unicode.GetString(this.titleName);
+                return Encoding.Unicode.GetString(titleName);
             }
         }
     }

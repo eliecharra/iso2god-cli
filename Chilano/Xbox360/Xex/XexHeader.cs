@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xex
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
     using System.Collections.Generic;
     using System.IO;

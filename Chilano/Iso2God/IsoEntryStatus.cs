@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Iso2God
 {
-    using System;
-
-    public enum IsoEntryStatus
+   public enum IsoEntryStatus
     {
         Idle,
         InProgress,

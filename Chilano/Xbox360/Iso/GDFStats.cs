@@ -20,43 +20,43 @@
 
         public GDFStats(GDFVolumeDescriptor volDesc)
         {
-            this.SectorSize = volDesc.SectorSize;
-            this.MaxSectors = volDesc.VolumeSectors;
-            this.MaxBytes = volDesc.VolumeSize;
-            this.Bmp = new Bitmap((int) (this.MaxSectors / 0x800), 0x800);
-            for (int i = 0; i < this.Bmp.Width; i++)
+            SectorSize = volDesc.SectorSize;
+            MaxSectors = volDesc.VolumeSectors;
+            MaxBytes = volDesc.VolumeSize;
+            Bmp = new Bitmap((int) (MaxSectors / 0x800), 0x800);
+            for (int i = 0; i < Bmp.Width; i++)
             {
-                for (int j = 0; j < this.Bmp.Height; j++)
+                for (int j = 0; j < Bmp.Height; j++)
                 {
-                    this.Bmp.SetPixel(i, j, Color.Black);
+                    Bmp.SetPixel(i, j, Color.Black);
                 }
             }
         }
 
         public void SaveSectorBitmap(FileStream File)
         {
-            this.Bmp.Save(File, ImageFormat.Png);
+            Bmp.Save(File, ImageFormat.Png);
         }
 
         public void SetPixel(uint Sector, GDFSectorStatus Status)
         {
-            int y = (int) Math.Floor((double) (((double) Sector) / ((double) this.Bmp.Width)));
-            int x = ((int) Sector) - (this.Bmp.Width * y);
-            this.Bmp.SetPixel(x, y, Color.FromArgb((int) Status));
+            int y = (int) Math.Floor((double) (((double) Sector) / ((double) Bmp.Width)));
+            int x = ((int) Sector) - (Bmp.Width * y);
+            Bmp.SetPixel(x, y, Color.FromArgb((int) Status));
         }
 
         public override string ToString()
         {
             string str = "GDF Statistics\n---------------------------";
-            uint num = this.TotalDirs - 1;
-            return ((((((((((str + "\nTotal Bytes: " + this.MaxBytes) + "\nTotal Sectors: " + this.MaxSectors) + "\n\nFiles: " + this.TotalFiles) + "\nDirs: " + num.ToString()) + "\nTotal Used Sectors: " + this.UsedSectors) + "\nTotal Used Bytes: " + this.DataBytes) + "\n\nUsed Data Sectors: " + this.UsedDataSectors) + "\nUsed Dir Sectors: " + this.UsedDirSectors) + "\nUsed GDF Sectors: " + this.UsedGDFSectors) + "\nFree Sectors: " + this.FreeSectors);
+            uint num = TotalDirs - 1;
+            return ((((((((((str + "\nTotal Bytes: " + MaxBytes) + "\nTotal Sectors: " + MaxSectors) + "\n\nFiles: " + TotalFiles) + "\nDirs: " + num.ToString()) + "\nTotal Used Sectors: " + UsedSectors) + "\nTotal Used Bytes: " + DataBytes) + "\n\nUsed Data Sectors: " + UsedDataSectors) + "\nUsed Dir Sectors: " + UsedDirSectors) + "\nUsed GDF Sectors: " + UsedGDFSectors) + "\nFree Sectors: " + FreeSectors);
         }
 
         public uint FreeSectors
         {
             get
             {
-                return (this.MaxSectors - ((this.UsedDataSectors + this.UsedDirSectors) + this.UsedGDFSectors));
+                return (MaxSectors - ((UsedDataSectors + UsedDirSectors) + UsedGDFSectors));
             }
         }
 
@@ -64,7 +64,7 @@
         {
             get
             {
-                return ((this.UsedDataSectors + this.UsedDirSectors) + this.UsedGDFSectors);
+                return ((UsedDataSectors + UsedDirSectors) + UsedGDFSectors);
             }
         }
 

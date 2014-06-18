@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using System;
-
-    public enum DDSSurfaceDescriptionFlags : uint
+   public enum DDSSurfaceDescriptionFlags : uint
     {
         DDSD_CAPS = 1,
         DDSD_DEPTH = 0x800000,

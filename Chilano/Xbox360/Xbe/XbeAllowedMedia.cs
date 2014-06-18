@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using System;
-
-    public enum XbeAllowedMedia : uint
+   public enum XbeAllowedMedia : uint
     {
         Cd = 8,
         Dongle = 0x100,

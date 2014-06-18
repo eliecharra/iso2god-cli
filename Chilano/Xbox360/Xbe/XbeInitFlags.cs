@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using System;
-
-    public enum XbeInitFlags : uint
+   public enum XbeInitFlags : uint
     {
         DontSetupHardDisk = 4,
         FormatUtilityDrive = 2,

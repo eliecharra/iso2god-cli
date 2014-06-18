@@ -1,9 +1,6 @@
 ﻿namespace Chilano.Iso2God
 {
-    using System;
-    using System.Drawing;
-
-    internal class IsoDetailsResults
+   internal class IsoDetailsResults
     {
         public IsoDetailsPlatform ConsolePlatform;
         public string DiscCount;
@@ -23,33 +20,33 @@
 
         public IsoDetailsResults(IsoDetailsResultsType Type, string Message)
         {
-            this.Results = Type;
+            Results = Type;
             if (Type == IsoDetailsResultsType.Error)
             {
-                this.ErrorMessage = Message;
+                ErrorMessage = Message;
             }
             if (Type == IsoDetailsResultsType.Progress)
             {
-                this.ProgressMessage = Message;
+                ProgressMessage = Message;
             }
         }
 
         public IsoDetailsResults(string Name, string TitleID, string DiscNumber)
         {
-            this.Results = IsoDetailsResultsType.Completed;
-            this.ConsolePlatform = IsoDetailsPlatform.Xbox;
+            Results = IsoDetailsResultsType.Completed;
+            ConsolePlatform = IsoDetailsPlatform.Xbox;
             this.Name = Name;
             this.TitleID = TitleID;
-            this.MediaID = "00000000";
-            this.Platform = "0";
-            this.ExType = "0";
+            MediaID = "00000000";
+            Platform = "0";
+            ExType = "0";
             this.DiscNumber = DiscNumber;
         }
 
         public IsoDetailsResults(string Name, string TitleID, string MediaID, string Platform, string ExType, string DiscNumber, string DiscCount)
         {
-            this.Results = IsoDetailsResultsType.Completed;
-            this.ConsolePlatform = IsoDetailsPlatform.Xbox360;
+            Results = IsoDetailsResultsType.Completed;
+            ConsolePlatform = IsoDetailsPlatform.Xbox360;
             this.Name = Name;
             this.TitleID = TitleID;
             this.MediaID = MediaID;

@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xdbf
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
     using System.Collections.Generic;
     using System.IO;
 

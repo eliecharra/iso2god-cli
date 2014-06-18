@@ -10,7 +10,7 @@
 
         public CBinaryReader(EndianType e, Stream s) : base(s)
         {
-            this.Endian = e;
+            Endian = e;
         }
 
         private object readBigEndian(DataType dt)
@@ -87,52 +87,52 @@
 
         public override double ReadDouble()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (double) this.readBigEndian(DataType.Double);
+                return (double) readBigEndian(DataType.Double);
             }
             return base.ReadDouble();
         }
 
         public override short ReadInt16()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (short) this.readBigEndian(DataType.Int16);
+                return (short) readBigEndian(DataType.Int16);
             }
             return base.ReadInt16();
         }
 
         public override int ReadInt32()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (int) this.readBigEndian(DataType.Int32);
+                return (int) readBigEndian(DataType.Int32);
             }
             return base.ReadInt32();
         }
 
         public override long ReadInt64()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (long) this.readBigEndian(DataType.Int64);
+                return (long) readBigEndian(DataType.Int64);
             }
             return base.ReadInt64();
         }
 
         public override float ReadSingle()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (float) this.readBigEndian(DataType.Single);
+                return (float) readBigEndian(DataType.Single);
             }
             return base.ReadSingle();
         }
 
         public string ReadStringUTF16(int Characters)
         {
-            if (this.Endian != EndianType.BigEndian)
+            if (Endian != EndianType.BigEndian)
             {
                 return Encoding.Unicode.GetString(base.ReadBytes(Characters * 2));
             }
@@ -146,27 +146,27 @@
 
         public override ushort ReadUInt16()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (ushort) this.readBigEndian(DataType.UInt16);
+                return (ushort) readBigEndian(DataType.UInt16);
             }
             return base.ReadUInt16();
         }
 
         public override uint ReadUInt32()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (uint) this.readBigEndian(DataType.UInt32);
+                return (uint) readBigEndian(DataType.UInt32);
             }
             return base.ReadUInt32();
         }
 
         public override ulong ReadUInt64()
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                return (ulong) this.readBigEndian(DataType.UInt64);
+                return (ulong) readBigEndian(DataType.UInt64);
             }
             return base.ReadUInt64();
         }

@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using System;
-
-    public enum XbeSectionFlags : uint
+   public enum XbeSectionFlags : uint
     {
         Executable = 4,
         HeadPageReadOnly = 0x10,

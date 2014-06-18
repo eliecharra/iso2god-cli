@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Iso
 {
-    using System;
-
-    public class GDFEntryNode
+   public class GDFEntryNode
     {
         public GDFDirEntry Key;
         public GDFEntryNode Left;

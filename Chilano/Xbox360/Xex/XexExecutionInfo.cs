@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xex
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
     using System.IO;
 
     public class XexExecutionInfo : XexInfoField
@@ -26,22 +25,22 @@
 
         public XexExecutionInfo(uint Address) : base(Address)
         {
-            this.TitleID = new byte[0];
-            this.MediaID = new byte[0];
+            TitleID = new byte[0];
+            MediaID = new byte[0];
         }
 
         public override void Parse(CBinaryReader br)
         {
             br.Seek((long) base.Address, SeekOrigin.Begin);
             br.Endian = EndianType.BigEndian;
-            this.MediaID = br.ReadBytes(4);
-            this.Version = br.ReadUInt32();
-            this.BaseVersion = br.ReadUInt32();
-            this.TitleID = br.ReadBytes(4);
-            this.Platform = br.ReadByte();
-            this.ExecutableType = br.ReadByte();
-            this.DiscNumber = br.ReadByte();
-            this.DiscCount = br.ReadByte();
+            MediaID = br.ReadBytes(4);
+            Version = br.ReadUInt32();
+            BaseVersion = br.ReadUInt32();
+            TitleID = br.ReadBytes(4);
+            Platform = br.ReadByte();
+            ExecutableType = br.ReadByte();
+            DiscNumber = br.ReadByte();
+            DiscCount = br.ReadByte();
         }
     }
 }

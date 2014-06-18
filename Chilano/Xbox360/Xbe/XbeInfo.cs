@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xbe
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -15,39 +15,39 @@
 
         public XbeInfo(byte[] Xbe)
         {
-            this.data = Xbe;
-            this.br = new CBinaryReader(EndianType.LittleEndian, new MemoryStream(this.data));
-            this.Header = new XbeHeader(this.br);
-            if (this.Header.IsValid)
+            data = Xbe;
+            br = new CBinaryReader(EndianType.LittleEndian, new MemoryStream(data));
+            Header = new XbeHeader(br);
+            if (Header.IsValid)
             {
-                this.br.Seek((long) (this.Header.CertificateAddress - this.Header.BaseAddress), SeekOrigin.Begin);
-                this.Certifcate = new XbeCertifcate(this.br);
-                this.br.Seek((long) (this.Header.SectionHeadersAddress - this.Header.BaseAddress), SeekOrigin.Begin);
-                for (uint i = 0; i < this.Header.NumberOfSections; i++)
+                br.Seek((long) (Header.CertificateAddress - Header.BaseAddress), SeekOrigin.Begin);
+                Certifcate = new XbeCertifcate(br);
+                br.Seek((long) (Header.SectionHeadersAddress - Header.BaseAddress), SeekOrigin.Begin);
+                for (uint i = 0; i < Header.NumberOfSections; i++)
                 {
-                    this.Sections.Add(new XbeSection(this.br));
+                    Sections.Add(new XbeSection(br));
                 }
-                foreach (XbeSection section in this.Sections)
+                foreach (XbeSection section in Sections)
                 {
-                    section.Read(this.br, this.Header.BaseAddress);
+                    section.Read(br, Header.BaseAddress);
                 }
             }
         }
 
         public void Dispose()
         {
-            this.br.Close();
+            br.Close();
         }
 
         public bool IsValid
         {
             get
             {
-                if (this.Header == null)
+                if (Header == null)
                 {
                     return false;
                 }
-                return this.Header.IsValid;
+                return Header.IsValid;
             }
         }
     }

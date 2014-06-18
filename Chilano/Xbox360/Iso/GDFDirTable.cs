@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Iso
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -15,8 +15,8 @@
 
         public GDFDirTable()
         {
-            this.Size = 0x800;
-            this.Tree = new AVLTree();
+            Size = 0x800;
+            Tree = new AVLTree();
         }
 
         public GDFDirTable(CBinaryReader File, GDFVolumeDescriptor Vol, uint Sector, uint Size)
@@ -69,18 +69,18 @@
             {
                 num += entry.EntrySize;
             }
-            this.Size = num;
-            if (this.Parent != null)
+            Size = num;
+            if (Parent != null)
             {
-                this.Parent.Size = (uint) (Math.Ceiling((double) (((double) this.Size) / 2048.0)) * 2048.0);
+                Parent.Size = (uint) (Math.Ceiling((double) (((double) Size) / 2048.0)) * 2048.0);
             }
         }
 
         public object Clone()
         {
             GDFDirTable table = new GDFDirTable {
-                Sector = this.Sector,
-                Size = this.Size
+                Sector = Sector,
+                Size = Size
             };
             foreach (GDFDirEntry entry in this)
             {
@@ -95,14 +95,14 @@
         {
             if (base.Count == 0)
             {
-                this.Size = 0;
-                this.Sector = 0;
+                Size = 0;
+                Sector = 0;
             }
             else
             {
                 base.Sort();
                 GDFDirEntry entry = base[(int) Math.Floor((double) (((double) base.Count) / 2.0))];
-                this.Tree.Insert(entry);
+                Tree.Insert(entry);
                 List<GDFDirEntry> list = new List<GDFDirEntry>();
                 foreach (GDFDirEntry entry2 in this)
                 {
@@ -113,7 +113,7 @@
                 while (list.Count > 0)
                 {
                     int index = random.Next(0, list.Count - 1);
-                    this.Tree.Insert(list[index]);
+                    Tree.Insert(list[index]);
                     list.RemoveAt(index);
                 }
             }
@@ -121,7 +121,7 @@
 
         public byte[] ToByteArray()
         {
-            byte[] buffer = new byte[(int) (Math.Ceiling((double) (((double) this.Size) / 2048.0)) * 2048.0)];
+            byte[] buffer = new byte[(int) (Math.Ceiling((double) (((double) Size) / 2048.0)) * 2048.0)];
             MemoryStream stream = new MemoryStream(buffer);
             for (int i = 0; i < buffer.Length; i++)
             {
@@ -150,12 +150,12 @@
             if (Node.Left != null)
             {
                 Node.Key.SubTreeL = (ushort) offset;
-                this.updateInOrder(Node.Left, ref offset);
+                updateInOrder(Node.Left, ref offset);
             }
             if (Node.Right != null)
             {
                 Node.Key.SubTreeR = (ushort) offset;
-                this.updateInOrder(Node.Right, ref offset);
+                updateInOrder(Node.Right, ref offset);
             }
         }
 
@@ -165,11 +165,11 @@
             ms.Write(buffer, 0, buffer.Length);
             if (Node.Left != null)
             {
-                this.writeInOrder(Node.Left, ms);
+                writeInOrder(Node.Left, ms);
             }
             if (Node.Right != null)
             {
-                this.writeInOrder(Node.Right, ms);
+                writeInOrder(Node.Right, ms);
             }
         }
     }

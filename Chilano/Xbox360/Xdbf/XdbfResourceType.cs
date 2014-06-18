@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xdbf
 {
-    using System;
-
-    public enum XdbfResourceType : ushort
+   public enum XdbfResourceType : ushort
     {
         Achievement = 2,
         Standard = 1,

@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Xbox360.IO
 {
-    using System;
-    using System.Text;
+   using System.Text;
 
     public static class DataConversion
     {

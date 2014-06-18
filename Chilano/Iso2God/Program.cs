@@ -1,4 +1,6 @@
-﻿namespace Chilano.Iso2God
+﻿using System.Reflection;
+
+namespace Chilano.Iso2God
 {
     using System;
     using System.IO;
@@ -22,7 +24,7 @@
                 String destinationPath = arguments[2];
 
                 Console.WriteLine("+ Computing ISO metadata ...");                
-                IsoDetails iso = new IsoDetails(new IsoDetailsArgs(isoPath, System.IO.Path.GetTempPath(), System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "xextool.exe"));
+                IsoDetails iso = new IsoDetails(new IsoDetailsArgs(isoPath, Path.GetTempPath(), Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + Path.DirectorySeparatorChar + "xextool.exe"));
                 IsoDetailsResults isoDetailsResults = iso.IsoDetails_DoWork();
                 IsoEntryID isoEntryID = new IsoEntryID(isoDetailsResults.TitleID, isoDetailsResults.MediaID, Convert.ToByte(isoDetailsResults.DiscNumber[0]), Convert.ToByte(isoDetailsResults.DiscCount[0]), Convert.ToByte(isoDetailsResults.Platform[0]), Convert.ToByte(isoDetailsResults.ExType[0]));
                 IsoEntry isoEntry = new IsoEntry(IsoEntryPlatform.Xbox360, isoPath, destinationPath, new FileInfo(isoPath).Length, isoDetailsResults.Name, isoEntryID);

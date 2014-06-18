@@ -1,17 +1,15 @@
-﻿namespace Chilano.Iso2God
+﻿using Chilano.Xbox360.Xdbf;
+
+namespace Chilano.Iso2God
 {
-    using Chilano.Xbox360.Graphics;
-    using Chilano.Xbox360.IO;
-    using Chilano.Xbox360.Iso;
-    using Chilano.Xbox360.Xbe;
-    using Chilano.Xbox360.Xdbf;
-    using Chilano.Xbox360.Xex;
+   using Xbox360.IO;
+    using Xbox360.Iso;
+    using Xbox360.Xbe;
+   using Xbox360.Xex;
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
+   using System.IO;
     using System.Text;
 
     internal class IsoDetails
@@ -27,11 +25,11 @@
 
         public IsoDetailsResults IsoDetails_DoWork()
         {
-            if (this.openIso())
+            if (openIso())
             {
-                if (this.iso.Exists("default.xex"))
+                if (iso.Exists("default.xex"))
                 {
-                    return this.readXex();
+                    return readXex();
                 }
                 else
                 {
@@ -48,8 +46,8 @@
         {
             try
             {
-                this.f = new FileStream(this.args.PathISO, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                this.iso = new GDF(this.f);
+                f = new FileStream(args.PathISO, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                iso = new GDF(f);
             }
             catch (IOException exception)
             {
@@ -71,7 +69,7 @@
             Console.WriteLine("+ Locating default.xbe...");
             try
             {
-                xbe = this.iso.GetFile("default.xbe");
+                xbe = iso.GetFile("default.xbe");
             }
             catch (Exception exception)
             {
@@ -102,8 +100,8 @@
             Console.WriteLine("+ Locating default.xex...");
             try
             {
-                bytes = this.iso.GetFile("default.xex");
-                pathTemp = this.args.PathTemp;
+                bytes = iso.GetFile("default.xex");
+                pathTemp = args.PathTemp;
                 path = pathTemp + "default.xex";
                 Console.WriteLine("+ Extracting default.xex...");
                 if ((bytes == null) || (bytes.Length == 0))
@@ -133,7 +131,7 @@
             Process process = new Process {
                 EnableRaisingEvents = false
             };
-            process.StartInfo.FileName = this.args.PathXexTool;
+            process.StartInfo.FileName = args.PathXexTool;
             if (File.Exists(process.StartInfo.FileName))
             {
                 process.StartInfo.WorkingDirectory = pathTemp;
@@ -153,7 +151,7 @@
                 }
                 if (File.Exists(pathTemp + results.TitleID))
                 {
-                    Chilano.Xbox360.Xdbf.Xdbf xdbf = new Chilano.Xbox360.Xdbf.Xdbf(File.ReadAllBytes(pathTemp + results.TitleID));                    
+                    Xdbf xdbf = new Xdbf(File.ReadAllBytes(pathTemp + results.TitleID));                    
                     try
                     {
                         MemoryStream stream3 = new MemoryStream(xdbf.GetResource(1, (ushort) 3));

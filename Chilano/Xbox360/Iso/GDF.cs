@@ -1,6 +1,6 @@
 ﻿namespace Chilano.Xbox360.Iso
 {
-    using Chilano.Xbox360.IO;
+    using IO;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -19,16 +19,16 @@
 
         public GDF(FileStream File)
         {
-            this.file = File;
-            this.fr = new CBinaryReader(EndianType.LittleEndian, this.file);
-            this.readVolume();
+            file = File;
+            fr = new CBinaryReader(EndianType.LittleEndian, file);
+            readVolume();
             try
             {
-                this.rootDir = new GDFDirTable(this.fr, this.volDesc, this.volDesc.RootDirSector, this.volDesc.RootDirSize);
+                rootDir = new GDFDirTable(fr, volDesc, volDesc.RootDirSector, volDesc.RootDirSize);
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
         }
 
@@ -42,10 +42,10 @@
                 {
                     if (entry.SubDir == null)
                     {
-                        entry.SubDir = new GDFDirTable(this.fr, this.volDesc, entry.Sector, entry.Size);
+                        entry.SubDir = new GDFDirTable(fr, volDesc, entry.Sector, entry.Size);
                         entry.SubDir.Parent = entry;
                     }
-                    this.calcSectors(entry.SubDir, stats);
+                    calcSectors(entry.SubDir, stats);
                 }
                 else
                 {
@@ -59,31 +59,31 @@
 
         public void Close()
         {
-            this.volDesc = new GDFVolumeDescriptor();
-            this.Exceptions.Clear();
-            this.type = IsoType.Gdf;
-            this.rootDir.Clear();
-            this.fr.Close();
-            this.file.Close();
+            volDesc = new GDFVolumeDescriptor();
+            Exceptions.Clear();
+            type = IsoType.Gdf;
+            rootDir.Clear();
+            fr.Close();
+            file.Close();
         }
 
         public void Dispose()
         {
-            this.Close();
-            this.file.Dispose();
+            Close();
+            file.Dispose();
         }
 
         public GDFStats ExamineSectors()
         {
-            GDFStats stats = new GDFStats(this.volDesc);
+            GDFStats stats = new GDFStats(volDesc);
             for (int i = 0; i < 0x20; i++)
             {
                 stats.SetPixel((uint) i, (GDFStats.GDFSectorStatus)unchecked((uint)(-16711936)));
             }
-            stats.SetPixel(this.volDesc.RootDirSector, (GDFStats.GDFSectorStatus)unchecked((uint)(-65536)));
+            stats.SetPixel(volDesc.RootDirSector, (GDFStats.GDFSectorStatus)unchecked((uint)(-65536)));
             uint lastSector = 0;
-            this.ParseDirectory(this.rootDir, true, ref lastSector);
-            this.calcSectors(this.rootDir, stats);
+            ParseDirectory(rootDir, true, ref lastSector);
+            calcSectors(rootDir, stats);
             return stats;
         }
 
@@ -91,7 +91,7 @@
         {
             try
             {
-                GDFDirTable folder = this.GetFolder(this.rootDir, Path);
+                GDFDirTable folder = GetFolder(rootDir, Path);
                 string str = Path.Contains(@"\") ? Path.Substring(Path.LastIndexOf(@"\") + 1) : Path;
                 foreach (GDFDirEntry entry in folder)
                 {
@@ -103,7 +103,7 @@
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
             return false;
         }
@@ -113,7 +113,7 @@
             List<GDFDirEntry> list = new List<GDFDirEntry>();
             try
             {
-                GDFDirTable folder = this.GetFolder(this.rootDir, Path);
+                GDFDirTable folder = GetFolder(rootDir, Path);
                 if (folder == null)
                 {
                     return list;
@@ -125,7 +125,7 @@
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
             return list;
         }
@@ -134,20 +134,20 @@
         {
             try
             {
-                GDFDirTable folder = this.GetFolder(this.rootDir, Path);
+                GDFDirTable folder = GetFolder(rootDir, Path);
                 string str = Path.Contains(@"\") ? Path.Substring(Path.LastIndexOf(@"\") + 1) : Path;
                 foreach (GDFDirEntry entry in folder)
                 {
                     if (entry.Name.ToLower() == str.ToLower())
                     {
-                        this.fr.Seek((long) (this.volDesc.RootOffset + (entry.Sector * this.volDesc.SectorSize)), SeekOrigin.Begin);
-                        return this.fr.ReadBytes((int) entry.Size);
+                        fr.Seek((long) (volDesc.RootOffset + (entry.Sector * volDesc.SectorSize)), SeekOrigin.Begin);
+                        return fr.ReadBytes((int) entry.Size);
                     }
                 }
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
             return new byte[0];
         }
@@ -159,7 +159,7 @@
                 fs.Enqueue(new GDFStreamEntry(entry, path + @"\" + entry.Name));
                 if (entry.IsDirectory)
                 {
-                    this.getFileSystem(ref fs, entry.SubDir, path + @"\" + entry.Name);
+                    getFileSystem(ref fs, entry.SubDir, path + @"\" + entry.Name);
                 }
             }
         }
@@ -167,7 +167,7 @@
         public Queue<GDFStreamEntry> GetFileSystem(GDFDirTable Root)
         {
             Queue<GDFStreamEntry> fs = new Queue<GDFStreamEntry>();
-            this.getFileSystem(ref fs, Root, "*");
+            getFileSystem(ref fs, Root, "*");
             return fs;
         }
 
@@ -198,19 +198,19 @@
                         }
                         if (entry.SubDir == null)
                         {
-                            entry.SubDir = new GDFDirTable(this.fr, this.volDesc, entry.Sector, entry.Size);
+                            entry.SubDir = new GDFDirTable(fr, volDesc, entry.Sector, entry.Size);
                         }
                         if (strArray.Length == 1)
                         {
                             return entry.SubDir;
                         }
-                        return this.GetFolder(entry.SubDir, Path.Substring(strArray[0].Length + 1));
+                        return GetFolder(entry.SubDir, Path.Substring(strArray[0].Length + 1));
                     }
                 }
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
             return null;
         }
@@ -223,61 +223,61 @@
                 {
                     if (entry.Sector >= lastSector)
                     {
-                        lastSector = entry.Sector + ((uint) Math.Ceiling((double) (((double) entry.Size) / ((double) this.volDesc.SectorSize))));
+                        lastSector = entry.Sector + ((uint) Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize))));
                     }
                     if (entry.IsDirectory)
                     {
-                        this.dirs++;
-                        entry.SubDir = new GDFDirTable(this.fr, this.volDesc, entry.Sector, entry.Size);
+                        dirs++;
+                        entry.SubDir = new GDFDirTable(fr, volDesc, entry.Sector, entry.Size);
                         entry.SubDir.Parent = entry;
                         if (recursive)
                         {
-                            this.ParseDirectory(entry.SubDir, true, ref lastSector);
+                            ParseDirectory(entry.SubDir, true, ref lastSector);
                         }
                     }
                     else
                     {
-                        this.files++;
+                        files++;
                     }
                 }
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
         }
 
         private void readVolume()
         {
-            this.volDesc = new GDFVolumeDescriptor();
-            this.volDesc.SectorSize = 0x800;
-            this.fr.Seek((long) (0x20 * this.volDesc.SectorSize), SeekOrigin.Begin);
-            if (Encoding.ASCII.GetString(this.fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
+            volDesc = new GDFVolumeDescriptor();
+            volDesc.SectorSize = 0x800;
+            fr.Seek((long) (0x20 * volDesc.SectorSize), SeekOrigin.Begin);
+            if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
             {
-                this.type = IsoType.Xsf;
-                this.volDesc.RootOffset = (uint) this.type;
+                type = IsoType.Xsf;
+                volDesc.RootOffset = (uint) type;
             }
             else
             {
-                this.file.Seek((long) ((0x20 * this.volDesc.SectorSize) + 0xfd90000), SeekOrigin.Begin);
-                if (Encoding.ASCII.GetString(this.fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
+                file.Seek((long) ((0x20 * volDesc.SectorSize) + 0xfd90000), SeekOrigin.Begin);
+                if (Encoding.ASCII.GetString(fr.ReadBytes(20)) == "MICROSOFT*XBOX*MEDIA")
                 {
-                    this.type = IsoType.Gdf;
-                    this.volDesc.RootOffset = (uint) this.type;
+                    type = IsoType.Gdf;
+                    volDesc.RootOffset = (uint) type;
                 }
                 else
                 {
-                    this.type = IsoType.XGD3;
-                    this.volDesc.RootOffset = (uint) this.type;
+                    type = IsoType.XGD3;
+                    volDesc.RootOffset = (uint) type;
                 }
             }
-            this.file.Seek((long) ((0x20 * this.volDesc.SectorSize) + this.volDesc.RootOffset), SeekOrigin.Begin);
-            this.volDesc.Identifier = this.fr.ReadBytes(20);
-            this.volDesc.RootDirSector = this.fr.ReadUInt32();
-            this.volDesc.RootDirSize = this.fr.ReadUInt32();
-            this.volDesc.ImageCreationTime = this.fr.ReadBytes(8);
-            this.volDesc.VolumeSize = (ulong) (this.fr.BaseStream.Length - this.volDesc.RootOffset);
-            this.volDesc.VolumeSectors = (uint) (this.volDesc.VolumeSize / ((ulong) this.volDesc.SectorSize));
+            file.Seek((long) ((0x20 * volDesc.SectorSize) + volDesc.RootOffset), SeekOrigin.Begin);
+            volDesc.Identifier = fr.ReadBytes(20);
+            volDesc.RootDirSector = fr.ReadUInt32();
+            volDesc.RootDirSize = fr.ReadUInt32();
+            volDesc.ImageCreationTime = fr.ReadBytes(8);
+            volDesc.VolumeSize = (ulong) (fr.BaseStream.Length - volDesc.RootOffset);
+            volDesc.VolumeSectors = (uint) (volDesc.VolumeSize / ((ulong) volDesc.SectorSize));
         }
 
         public void SaveFileSystem(FileStream File)
@@ -289,8 +289,8 @@
             file.Write("\nSector\t\tSize (s)\t\tSize (b)\t\tName\n");
             file.WriteLine("---------------------------------------------------------");
             uint lastSector = 0;
-            this.ParseDirectory(this.rootDir, true, ref lastSector);
-            this.saveFileSystemTable(file, this.rootDir);
+            ParseDirectory(rootDir, true, ref lastSector);
+            saveFileSystemTable(file, rootDir);
             file.Flush();
         }
 
@@ -300,11 +300,11 @@
             {
                 if (entry.IsDirectory)
                 {
-                    this.saveFileSystemTable(file, entry.SubDir);
+                    saveFileSystemTable(file, entry.SubDir);
                 }
                 else
                 {
-                    file.WriteLine(string.Concat(new object[] { entry.Sector, "\t\t", entry.Size, "\t\t", Math.Ceiling((double) (((double) entry.Size) / ((double) this.volDesc.SectorSize))), "\t\t", entry.Name }));
+                    file.WriteLine(string.Concat(new object[] { entry.Sector, "\t\t", entry.Size, "\t\t", Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize))), "\t\t", entry.Name }));
                 }
             }
         }
@@ -313,23 +313,23 @@
         {
             try
             {
-                GDFDirTable folder = this.GetFolder(this.rootDir, Path);
+                GDFDirTable folder = GetFolder(rootDir, Path);
                 string str = Path.Contains(@"\") ? Path.Substring(Path.LastIndexOf(@"\") + 1) : Path;
                 foreach (GDFDirEntry entry in folder)
                 {
                     if (entry.Name.ToLower() == str.ToLower())
                     {
-                        this.fr.Seek((long) (this.volDesc.RootOffset + (entry.Sector * this.volDesc.SectorSize)), SeekOrigin.Begin);
-                        uint num = (uint) Math.Ceiling((double) (((double) entry.Size) / ((double) this.volDesc.SectorSize)));
+                        fr.Seek((long) (volDesc.RootOffset + (entry.Sector * volDesc.SectorSize)), SeekOrigin.Begin);
+                        uint num = (uint) Math.Ceiling((double) (((double) entry.Size) / ((double) volDesc.SectorSize)));
                         long num2 = 0L;
                         for (uint i = 0; i < num; i++)
                         {
                             byte[] buffer;
-                            if ((num2 + this.volDesc.SectorSize) > entry.Size)
+                            if ((num2 + volDesc.SectorSize) > entry.Size)
                             {
-                                buffer = this.fr.ReadBytes((int) (entry.Size - num2));
+                                buffer = fr.ReadBytes((int) (entry.Size - num2));
                                 Writer.Write(buffer);
-                                int num4 = ((int) this.volDesc.SectorSize) - buffer.Length;
+                                int num4 = ((int) volDesc.SectorSize) - buffer.Length;
                                 for (int j = 0; j < num4; j++)
                                 {
                                     Writer.Write((byte) 0);
@@ -337,10 +337,10 @@
                             }
                             else
                             {
-                                buffer = this.fr.ReadBytes((int) this.volDesc.SectorSize);
+                                buffer = fr.ReadBytes((int) volDesc.SectorSize);
                                 Writer.Write(buffer);
                             }
-                            num2 += this.volDesc.SectorSize;
+                            num2 += volDesc.SectorSize;
                         }
                         return (long) entry.Size;
                     }
@@ -348,7 +348,7 @@
             }
             catch (Exception exception)
             {
-                this.Exceptions.Add(exception);
+                Exceptions.Add(exception);
             }
             return -1L;
         }
@@ -357,7 +357,7 @@
         {
             get
             {
-                return this.dirs;
+                return dirs;
             }
         }
 
@@ -365,7 +365,7 @@
         {
             get
             {
-                return this.files;
+                return files;
             }
         }
 
@@ -373,7 +373,7 @@
         {
             get
             {
-                return (this.LastSector * this.volDesc.SectorSize);
+                return (LastSector * volDesc.SectorSize);
             }
         }
 
@@ -382,7 +382,7 @@
             get
             {
                 uint lastSector = 0;
-                this.ParseDirectory(this.rootDir, true, ref lastSector);
+                ParseDirectory(rootDir, true, ref lastSector);
                 return lastSector;
             }
         }
@@ -391,7 +391,7 @@
         {
             get
             {
-                return this.rootDir;
+                return rootDir;
             }
         }
 
@@ -399,7 +399,7 @@
         {
             get
             {
-                return (ulong) this.Type;
+                return (ulong) Type;
             }
         }
 
@@ -407,7 +407,7 @@
         {
             get
             {
-                return this.type;
+                return type;
             }
         }
 
@@ -415,7 +415,7 @@
         {
             get
             {
-                return this.volDesc;
+                return volDesc;
             }
         }
     }

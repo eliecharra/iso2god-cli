@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Graphics
 {
-    using System;
-
-    public enum DDSCaps2Flags : uint
+   public enum DDSCaps2Flags : uint
     {
         DDSCAPS2_CUBEMAP = 0x200,
         DDSCAPS2_CUBEMAP_NEGATIVEX = 0x800,

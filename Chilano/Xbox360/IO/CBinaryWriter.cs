@@ -10,7 +10,7 @@
 
         public CBinaryWriter(EndianType e, Stream s) : base(s)
         {
-            this.Endian = e;
+            Endian = e;
         }
 
         public long Seek(long Offset, SeekOrigin Origin)
@@ -66,9 +66,9 @@
 
         public void WriteDouble(double data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.Double);
+                writeBigEndian(data, DataType.Double);
             }
             else
             {
@@ -78,9 +78,9 @@
 
         public void WriteInt16(short data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.Int16);
+                writeBigEndian(data, DataType.Int16);
             }
             else
             {
@@ -90,9 +90,9 @@
 
         public void WriteInt32(short data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.Int32);
+                writeBigEndian(data, DataType.Int32);
             }
             else
             {
@@ -102,9 +102,9 @@
 
         public void WriteInt64(long data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.Int64);
+                writeBigEndian(data, DataType.Int64);
             }
             else
             {
@@ -114,9 +114,9 @@
 
         public void WriteSingle(double data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.Single);
+                writeBigEndian(data, DataType.Single);
             }
             else
             {
@@ -127,7 +127,7 @@
         public void WriteStringUTF16(string data)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(data);
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
                 for (int i = 0; i < bytes.Length; i += 2)
                 {
@@ -143,9 +143,9 @@
 
         public void WriteUint16(ushort data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.UInt16);
+                writeBigEndian(data, DataType.UInt16);
             }
             else
             {
@@ -158,7 +158,7 @@
             byte[] buffer = new byte[4];
             MemoryStream output = new MemoryStream(buffer);
             new BinaryWriter(output).Write(data);
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
                 Array.Reverse(buffer);
                 for (int i = 1; i < buffer.Length; i++)
@@ -177,9 +177,9 @@
 
         public void WriteUint32(uint data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.UInt32);
+                writeBigEndian(data, DataType.UInt32);
             }
             else
             {
@@ -189,9 +189,9 @@
 
         public void WriteUint64(ulong data)
         {
-            if (this.Endian == EndianType.BigEndian)
+            if (Endian == EndianType.BigEndian)
             {
-                this.writeBigEndian(data, DataType.UInt64);
+                writeBigEndian(data, DataType.UInt64);
             }
             else
             {

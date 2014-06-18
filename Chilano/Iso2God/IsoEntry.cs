@@ -1,7 +1,6 @@
 ﻿namespace Chilano.Iso2God
 {
-    using System;
-    using System.Runtime.InteropServices;
+   using System.Runtime.InteropServices;
 
     [StructLayout(LayoutKind.Sequential)]
     public struct IsoEntry
@@ -20,7 +19,7 @@
             this.Destination = Destination;
             this.Size = Size;
             this.TitleName = TitleName;
-            this.Parts = 0;
+            Parts = 0;
             this.ID = ID;
         }
     }

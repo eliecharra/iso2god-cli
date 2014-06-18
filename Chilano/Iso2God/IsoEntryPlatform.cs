@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Iso2God
 {
-    using System;
-
-    public enum IsoEntryPlatform
+   public enum IsoEntryPlatform
     {
         Xbox,
         Xbox360

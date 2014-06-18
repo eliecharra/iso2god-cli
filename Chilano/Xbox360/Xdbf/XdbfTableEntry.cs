@@ -1,9 +1,8 @@
 ﻿namespace Chilano.Xbox360.Xdbf
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
 
-    public class XdbfTableEntry
+   public class XdbfTableEntry
     {
         public uint Identifier;
         public uint Offset;
@@ -13,17 +12,17 @@
 
         public XdbfTableEntry(CBinaryReader b)
         {
-            this.Identifier = b.ReadUInt32();
-            this.Offset = b.ReadUInt32();
-            this.Size = b.ReadUInt32();
-            this.Type = b.ReadUInt16();
-            this.Padding = b.ReadUInt32();
+            Identifier = b.ReadUInt32();
+            Offset = b.ReadUInt32();
+            Size = b.ReadUInt32();
+            Type = b.ReadUInt16();
+            Padding = b.ReadUInt32();
         }
 
         public override string ToString()
         {
             string str = "XdbfTableEntry: { ";
-            return (((((str + "Identifier = " + this.Identifier.ToString()) + ", Offset = " + this.Offset.ToString()) + ", Size = " + this.Size.ToString()) + ", Type = " + this.Type.ToString()) + " }");
+            return (((((str + "Identifier = " + Identifier.ToString()) + ", Offset = " + Offset.ToString()) + ", Size = " + Size.ToString()) + ", Type = " + Type.ToString()) + " }");
         }
     }
 }

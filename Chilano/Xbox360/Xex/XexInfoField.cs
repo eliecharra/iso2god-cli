@@ -1,16 +1,15 @@
 ﻿namespace Chilano.Xbox360.Xex
 {
-    using Chilano.Xbox360.IO;
-    using System;
+    using IO;
 
-    public class XexInfoField
+   public class XexInfoField
     {
         public uint Address;
         private bool flags;
 
         public XexInfoField(uint address)
         {
-            this.Address = address;
+            Address = address;
         }
 
         public virtual void Parse(CBinaryReader br)
@@ -21,11 +20,11 @@
         {
             get
             {
-                return this.flags;
+                return flags;
             }
             set
             {
-                this.flags = value;
+                flags = value;
             }
         }
 
@@ -33,7 +32,7 @@
         {
             get
             {
-                return (this.Address != 0);
+                return (Address != 0);
             }
         }
     }

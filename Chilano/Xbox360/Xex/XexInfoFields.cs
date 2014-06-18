@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xex
 {
-    using System;
-
-    public enum XexInfoFields
+   public enum XexInfoFields
     {
         CodeOffset,
         CertifcateOffset,

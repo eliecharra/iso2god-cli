@@ -1,8 +1,6 @@
 ﻿namespace Chilano.Xbox360.Xdbf
 {
-    using System;
-
-    public enum XdbfResource : uint
+   public enum XdbfResource : uint
     {
         Thumb = 0x8000,
         XACH = 0x58414348,

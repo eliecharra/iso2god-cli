@@ -79,18 +79,6 @@
                 return ((base.Address & 1) == 0x80);
             }
         }
-
-        private enum ModuleFlags : uint
-        {
-            DeltaPatch = 0x40,
-            DllModule = 8,
-            ExportsToTitle = 2,
-            FullPatch = 0x20,
-            ModulePatch = 0x10,
-            SystemDebugger = 4,
-            TitleModule = 1,
-            UserMode = 0x80
-        }
     }
 }
 

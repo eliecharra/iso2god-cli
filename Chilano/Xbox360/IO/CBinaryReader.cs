@@ -80,11 +80,6 @@
             return array;
         }
 
-        public override decimal ReadDecimal()
-        {
-            return base.ReadDecimal();
-        }
-
         public override double ReadDouble()
         {
             if (Endian == EndianType.BigEndian)

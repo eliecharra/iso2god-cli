@@ -15,11 +15,7 @@ namespace Chilano.Iso2God.Properties
         private static CultureInfo resourceCulture;
         private static ResourceManager resourceMan;
 
-        internal Resources()
-        {
-        }
-
-        internal static Icon AppIcon
+       internal static Icon AppIcon
         {
             get
             {

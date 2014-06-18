@@ -44,7 +44,6 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="Chilano\Xbox360\Iso\GDF.cs.old" />
-    <Compile Include="Global.cs" />
     <Compile Include="Chilano\Iso2God\IsoEntry.cs" />
     <Compile Include="Chilano\Iso2God\IsoEntryPlatform.cs" />
     <Compile Include="Chilano\Iso2God\IsoEntryPadding.cs" />

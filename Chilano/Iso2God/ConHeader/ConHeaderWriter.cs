@@ -21,16 +21,6 @@
             bw = new CBinaryWriter(EndianType.BigEndian, header);
         }
 
-        private string bytesToHexString(byte[] value)
-        {
-            StringBuilder builder = new StringBuilder(value.Length * 2);
-            foreach (byte num2 in value)
-            {
-                builder.Append(num2.ToString("X02"));
-            }
-            return builder.ToString();
-        }
-
         public void Close()
         {
             bw.Close();

@@ -43,8 +43,7 @@
                         item.NameLength = reader.ReadByte();
                         item.Name = Encoding.ASCII.GetString(buffer, (int) s.Position, item.NameLength);
                         s.Seek((long) item.NameLength, SeekOrigin.Current);
-                        long num1 = s.Position % 4L;
-                        if ((s.Position % 4L) != 0L)
+                       if ((s.Position % 4L) != 0L)
                         {
                             s.Seek(4L - (s.Position % 4L), SeekOrigin.Current);
                         }
@@ -142,35 +141,6 @@
             }
             stream.Close();
             return buffer;
-        }
-
-        private void updateInOrder(GDFEntryNode Node, ref uint offset)
-        {
-            offset += Node.Key.EntrySize / 4;
-            if (Node.Left != null)
-            {
-                Node.Key.SubTreeL = (ushort) offset;
-                updateInOrder(Node.Left, ref offset);
-            }
-            if (Node.Right != null)
-            {
-                Node.Key.SubTreeR = (ushort) offset;
-                updateInOrder(Node.Right, ref offset);
-            }
-        }
-
-        private void writeInOrder(GDFEntryNode Node, MemoryStream ms)
-        {
-            byte[] buffer = Node.Key.ToByteArray();
-            ms.Write(buffer, 0, buffer.Length);
-            if (Node.Left != null)
-            {
-                writeInOrder(Node.Left, ms);
-            }
-            if (Node.Right != null)
-            {
-                writeInOrder(Node.Right, ms);
-            }
         }
     }
 }

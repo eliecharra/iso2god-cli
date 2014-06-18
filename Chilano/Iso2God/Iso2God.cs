@@ -153,11 +153,7 @@
         private DateTime Start;
         private string uniqueName = "";
 
-        public Iso2God()
-        {
-        }
-
-        private void calcMhtHashChain(string Destination, uint TotalPartsReq, out uint lastPartSize, out byte[] lastMhtHash)
+       private void calcMhtHashChain(string Destination, uint TotalPartsReq, out uint lastPartSize, out byte[] lastMhtHash)
         {
             lastPartSize = 0;
             lastMhtHash = new byte[20];
@@ -327,7 +323,7 @@
             Console.WriteLine("+ Beginning ISO conversion...");
             Start = DateTime.Now;
             stream.Seek((long) gdf.RootOffset, SeekOrigin.Begin);
-            writeParts(stream, path, iso, partsReq, blocksReq);
+            writeParts(stream, path, partsReq, blocksReq);
             Console.WriteLine("+ Calculating Master Hash Table chain...");
             byte[] lastMhtHash = new byte[20];
             uint lastPartSize = 0;
@@ -509,7 +505,7 @@
             }
         }
 
-        private void writeParts(FileStream src, string destPath, IsoEntry iso, uint partsReq, uint blocksReq)
+        private void writeParts(FileStream src, string destPath, uint partsReq, uint blocksReq)
         {
             uint num = 0;
             for (uint i = 0; i < partsReq; i++)

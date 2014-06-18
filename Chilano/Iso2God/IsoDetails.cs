@@ -62,35 +62,6 @@ namespace Chilano.Iso2God
             return true;
         }
 
-        private void readXbe(DoWorkEventArgs e)
-        {
-            IsoDetailsResults results = null;
-            byte[] xbe = null;
-            Console.WriteLine("+ Locating default.xbe...");
-            try
-            {
-                xbe = iso.GetFile("default.xbe");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine("- Unable to extract default.xbe. Reason:\n\n" + exception.Message);
-                return;
-            }
-            Console.WriteLine("+ Found! Reading default.xbe...");
-            using (XbeInfo info = new XbeInfo(xbe))
-            {
-                if (!info.IsValid)
-                {
-                    Console.WriteLine("- Default.xbe was not valid.");
-                    return;
-                }
-                results = new IsoDetailsResults(info.Certifcate.TitleName, info.Certifcate.TitleID, (info.Certifcate.DiskNumber > 0) ? info.Certifcate.DiskNumber.ToString() : "1") {
-                    DiscCount = "1"
-                };
-            }
-            e.Result = results;
-        }
-
         private IsoDetailsResults readXex()
         {
             IsoDetailsResults results = null;

@@ -8,7 +8,7 @@
         public uint BitMaskGreen;
         public uint BitMaskRed;
         public uint BitMaskRGBAlpha;
-        public DDSPixelFormatFlags Flags;
+        public DdsPixelFormatFlags Flags;
         public DDSPixelFormatFourCC FourCC;
         public uint RGBBitCount;
         public uint Size;
@@ -18,7 +18,7 @@
             Size = 0x20;
         }
 
-        public DDSPixelFormat(DDSPixelFormatFlags Flags, DDSPixelFormatFourCC FourCC, uint RGBBitCount, uint BitMaskRed, uint BitMaskGreen, uint BitMaskBlue, uint BitMaskRGBAlpha)
+        public DDSPixelFormat(DdsPixelFormatFlags Flags, DDSPixelFormatFourCC FourCC, uint RGBBitCount, uint BitMaskRed, uint BitMaskGreen, uint BitMaskBlue, uint BitMaskRGBAlpha)
         {
             Size = 0x20;
             this.Flags = Flags;

@@ -7,14 +7,12 @@
     public class XexInfo : IDisposable
     {
         private CBinaryReader br;
-        private byte[] data;
-        public XexHeader Header;
+       public XexHeader Header;
         private MemoryStream ms;
 
         public XexInfo(byte[] Xex)
         {
-            data = Xex;
-            ms = new MemoryStream(data);
+           ms = new MemoryStream(Xex);
             br = new CBinaryReader(EndianType.BigEndian, ms);
             Header = new XexHeader(br);
             foreach (XexInfoField field in Header.Values)

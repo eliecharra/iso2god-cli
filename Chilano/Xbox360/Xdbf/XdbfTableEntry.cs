@@ -22,7 +22,7 @@
         public override string ToString()
         {
             string str = "XdbfTableEntry: { ";
-            return (((((str + "Identifier = " + Identifier.ToString()) + ", Offset = " + Offset.ToString()) + ", Size = " + Size.ToString()) + ", Type = " + Type.ToString()) + " }");
+            return (((((str + "Identifier = " + Identifier) + ", Offset = " + Offset) + ", Size = " + Size) + ", Type = " + Type) + " }");
         }
     }
 }

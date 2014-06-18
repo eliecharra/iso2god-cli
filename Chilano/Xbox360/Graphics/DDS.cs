@@ -15,25 +15,25 @@
             switch (Type)
             {
                 case DDSType.DXT1:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_FOURCC;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_FOURCC;
                     Header.PixelFormat.FourCC = DDSPixelFormatFourCC.DXT1;
                     Header.Pitch /= 2;
                     return;
 
                 case DDSType.DXT1a:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_FOURCC;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_FOURCC;
                     Header.PixelFormat.FourCC = DDSPixelFormatFourCC.DXT1;
                     Header.Pitch /= 2;
                     return;
 
                 case DDSType.DXT3:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_FOURCC;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_FOURCC;
                     Header.PixelFormat.FourCC = DDSPixelFormatFourCC.DXT3;
                     Header.Pitch /= 2;
                     return;
 
                 case DDSType.DXT5:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_FOURCC;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_FOURCC;
                     Header.PixelFormat.FourCC = DDSPixelFormatFourCC.DXT5;
                     Header.Pitch /= 2;
                     return;
@@ -43,7 +43,7 @@
                     break;
 
                 case DDSType.b1555:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_RGB | DDSPixelFormatFlags.DDPF_ALPHAPIXELS;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_RGB | DdsPixelFormatFlags.DDPF_ALPHAPIXELS;
                     Header.PixelFormat.RGBBitCount = 0x10;
                     Header.PixelFormat.BitMaskRed = 0x7c00;
                     Header.PixelFormat.BitMaskGreen = 0x3e0;
@@ -52,7 +52,7 @@
                     break;
 
                 case DDSType.ARGB:
-                    Header.PixelFormat.Flags |= DDSPixelFormatFlags.DDPF_RGB | DDSPixelFormatFlags.DDPF_ALPHAPIXELS;
+                    Header.PixelFormat.Flags |= DdsPixelFormatFlags.DDPF_RGB | DdsPixelFormatFlags.DDPF_ALPHAPIXELS;
                     Header.PixelFormat.RGBBitCount = 0x20;
                     Header.PixelFormat.BitMaskRed = 0xff0000;
                     Header.PixelFormat.BitMaskGreen = 0xff00;

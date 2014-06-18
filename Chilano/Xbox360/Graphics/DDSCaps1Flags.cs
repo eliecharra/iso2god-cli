@@ -1,5 +1,8 @@
-﻿namespace Chilano.Xbox360.Graphics
+﻿using System;
+
+namespace Chilano.Xbox360.Graphics
 {
+   [Flags]
    public enum DDSCaps1Flags : uint
     {
         DDSCAPS_COMPLEX = 8,

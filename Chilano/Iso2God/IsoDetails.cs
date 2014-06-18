@@ -4,7 +4,6 @@ namespace Chilano.Iso2God
 {
    using Xbox360.IO;
     using Xbox360.Iso;
-    using Xbox360.Xbe;
    using Xbox360.Xex;
     using System;
     using System.ComponentModel;
@@ -114,7 +113,7 @@ namespace Chilano.Iso2God
                 {
                     throw new Exception("Could not launch XexTool!");
                 }
-                if (File.Exists(pathTemp + results.TitleID))
+                if (results != null && File.Exists(pathTemp + results.TitleID))
                 {
                     Xdbf xdbf = new Xdbf(File.ReadAllBytes(pathTemp + results.TitleID));                    
                     try

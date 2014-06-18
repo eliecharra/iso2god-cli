@@ -1,5 +1,8 @@
-﻿namespace Chilano.Xbox360.Iso
+﻿using System;
+
+namespace Chilano.Xbox360.Iso
 {
+   [Flags]
    public enum GDFDirEntryAttrib : byte
     {
         Archive = 0x20,

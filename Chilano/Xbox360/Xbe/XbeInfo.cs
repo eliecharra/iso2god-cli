@@ -9,14 +9,12 @@
     {
         private CBinaryReader br;
         public XbeCertifcate Certifcate;
-        private byte[] data;
-        public XbeHeader Header;
+       public XbeHeader Header;
         public List<XbeSection> Sections = new List<XbeSection>();
 
         public XbeInfo(byte[] Xbe)
         {
-            data = Xbe;
-            br = new CBinaryReader(EndianType.LittleEndian, new MemoryStream(data));
+           br = new CBinaryReader(EndianType.LittleEndian, new MemoryStream(Xbe));
             Header = new XbeHeader(br);
             if (Header.IsValid)
             {

@@ -147,8 +147,8 @@
            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
            0xff, 0x43, 0x44, 0x30, 0x30, 0x31, 1
         };
-        private float progress;
-        private GDFDirTable rootDir;
+
+       private GDFDirTable rootDir;
         private SHA1Managed sha1 = new SHA1Managed();
         private uint shtPerMHT = 0xcb;
         private DateTime Start;
@@ -163,36 +163,36 @@
                 string path = Destination + Path.DirectorySeparatorChar + "Data";
                 if (i < 10)
                 {
-                    path = path + "000" + i.ToString();
+                    path = path + "000" + i;
                 }
                 else if (i < 100)
                 {
-                    path = path + "00" + i.ToString();
+                    path = path + "00" + i;
                 }
                 else if (i < 0x3e8)
                 {
-                    path = path + "0" + i.ToString();
+                    path = path + "0" + i;
                 }
                 else if (i < 0x2710)
                 {
-                    path = path + i.ToString();
+                    path = path + i;
                 }
                 string str2 = Destination + Path.DirectorySeparatorChar + "Data";
                 if ((i - 1) < 10)
                 {
-                    str2 = str2 + "000" + ((i - 1)).ToString();
+                    str2 = str2 + "000" + ((i - 1));
                 }
                 else if ((i - 1) < 100)
                 {
-                    str2 = str2 + "00" + ((i - 1)).ToString();
+                    str2 = str2 + "00" + ((i - 1));
                 }
                 else if ((i - 1) < 0x3e8)
                 {
-                    str2 = str2 + "0" + ((i - 1)).ToString();
+                    str2 = str2 + "0" + ((i - 1));
                 }
                 else if ((i - 1) < 0x2710)
                 {
-                    str2 = str2 + ((i - 1)).ToString();
+                    str2 = str2 + ((i - 1));
                 }
                 FileStream f = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
                 FileStream stream2 = new FileStream(str2, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
@@ -340,7 +340,7 @@
             Finish = DateTime.Now;
             TimeSpan span = Finish - Start;
             Console.WriteLine("+ Done!");
-            Console.WriteLine("+ Finished in " + span.Minutes.ToString() + "m" + span.Seconds.ToString() + "s. GOD package written to: " + path);
+            Console.WriteLine("+ Finished in " + span.Minutes + "m" + span.Seconds + "s. GOD package written to: " + path);
             GC.Collect();
         }
 
@@ -368,7 +368,7 @@
                         entry.SubDir.Sector = freeSector;
                         entry.SubDir.Parent = entry;
                         freeSector += sizeToSectors(src, entry.Size);
-                        Console.WriteLine("+ Remapped '" + entry.Name + "' (" + sizeToSectors(src, entry.Size).ToString() + " sectors) to Sector 0x" + entry.Sector.ToString("X02"));
+                        Console.WriteLine("+ Remapped '" + entry.Name + "' (" + sizeToSectors(src, entry.Size) + " sectors) to Sector 0x" + entry.Sector.ToString("X02"));
                         remapDirs(src, entry.SubDir);
                     }
                 }
@@ -418,8 +418,7 @@
 
         private void writeFiles(GDF src, CBinaryWriter bw, GDFDirTable table)
         {
-            uint fileCount = src.FileCount;
-            foreach (GDFDirEntry entry in table)
+           foreach (GDFDirEntry entry in table)
             {
                 if (!entry.IsDirectory)
                 {
@@ -430,8 +429,7 @@
                     {
                         path = path.Remove(0, 1);
                     }
-                    progress += ((1f / fileCount) * 0.45f) * 100f;
-                    Console.WriteLine("+ Writing '" + path + "' at Sector 0x" + entry.Sector.ToString("X02") + "...");
+                   Console.WriteLine("+ Writing '" + path + "' at Sector 0x" + entry.Sector.ToString("X02") + "...");
                     src.WriteFileToStream(path, bw);
                 }
             }
@@ -511,24 +509,23 @@
             uint num = 0;
             for (uint i = 0; i < partsReq; i++)
             {
-                progress += ((1f / partsReq) * (0.9f)) * 100f;
-                Console.Write("+ Writing Part " + i.ToString() + " / " + partsReq.ToString() + "...\r");
+               Console.Write("+ Writing Part " + i + " / " + partsReq + "...\r");
                 string path = destPath + Path.DirectorySeparatorChar + "Data";
                 if (i < 10)
                 {
-                    path = path + "000" + i.ToString();
+                    path = path + "000" + i;
                 }
                 else if (i < 100)
                 {
-                    path = path + "00" + i.ToString();
+                    path = path + "00" + i;
                 }
                 else if (i < 0x3e8)
                 {
-                    path = path + "0" + i.ToString();
+                    path = path + "0" + i;
                 }
                 else if (i < 0x2710)
                 {
-                    path = path + i.ToString();
+                    path = path + i;
                 }
                 FileStream f = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
                 MasterHashtable hashtable = new MasterHashtable();

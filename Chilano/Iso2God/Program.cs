@@ -34,7 +34,7 @@ namespace Chilano.Iso2God
                 Console.WriteLine("> Title ID : " + isoEntry.ID.TitleID);
                 Console.WriteLine("> Disc     : " + Char.ConvertFromUtf32(isoEntry.ID.DiscNumber) + " / " + Char.ConvertFromUtf32(isoEntry.ID.DiscCount));
                 Console.WriteLine("> Media ID : " + isoEntry.ID.MediaID);
-                Console.WriteLine("> Platform : " + isoEntry.Platform.ToString());
+                Console.WriteLine("> Platform : " + isoEntry.Platform);
                 Console.WriteLine("> Ex       : " + Char.ConvertFromUtf32(isoEntry.ID.ExType));
                 Console.WriteLine("-----------------------------------------------------------");
 

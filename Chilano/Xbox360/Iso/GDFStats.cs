@@ -49,7 +49,7 @@
         {
             string str = "GDF Statistics\n---------------------------";
             uint num = TotalDirs - 1;
-            return ((((((((((str + "\nTotal Bytes: " + MaxBytes) + "\nTotal Sectors: " + MaxSectors) + "\n\nFiles: " + TotalFiles) + "\nDirs: " + num.ToString()) + "\nTotal Used Sectors: " + UsedSectors) + "\nTotal Used Bytes: " + DataBytes) + "\n\nUsed Data Sectors: " + UsedDataSectors) + "\nUsed Dir Sectors: " + UsedDirSectors) + "\nUsed GDF Sectors: " + UsedGDFSectors) + "\nFree Sectors: " + FreeSectors);
+            return ((((((((((str + "\nTotal Bytes: " + MaxBytes) + "\nTotal Sectors: " + MaxSectors) + "\n\nFiles: " + TotalFiles) + "\nDirs: " + num) + "\nTotal Used Sectors: " + UsedSectors) + "\nTotal Used Bytes: " + DataBytes) + "\n\nUsed Data Sectors: " + UsedDataSectors) + "\nUsed Dir Sectors: " + UsedDirSectors) + "\nUsed GDF Sectors: " + UsedGDFSectors) + "\nFree Sectors: " + FreeSectors);
         }
 
         public uint FreeSectors

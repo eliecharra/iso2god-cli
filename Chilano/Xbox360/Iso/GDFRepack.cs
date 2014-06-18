@@ -141,18 +141,18 @@
            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
            0xff, 0x43, 0x44, 0x30, 0x30, 0x31, 1
         };
-        private string path;
-        private GDFDirTable root;
-        private GDF src;
-        private List<GDFDirTable> tables;
+        private readonly string _path;
+        private GDFDirTable _root;
+        private GDF _src;
+        private List<GDFDirTable> _tables;
 
-        public GDFRepack(GDF Source, string TempPath)
+        public GDFRepack(GDF source, string tempPath)
         {
-            src = Source;
-            path = TempPath;
+            _src = source;
+            _path = tempPath;
         }
 
-        private void buildTables(ref GDFDirTable t, string dir)
+        private void BuildTables(ref GDFDirTable t, string dir)
         {
             string[] directories = Directory.GetDirectories(dir);
             string[] files = Directory.GetFiles(dir);
@@ -163,30 +163,28 @@
             }
             foreach (string str in directories)
             {
-                GDFDirEntry entry;
-                entry = new GDFDirEntry {
-                    Name = str.Substring(str.LastIndexOf(@"\") + 1),
-                    NameLength = (byte) str.Substring(str.LastIndexOf(@"\") + 1).Length,
-                    Attributes = GDFDirEntryAttrib.Directory,
-                    SubDir = new GDFDirTable()
-                };
+               GDFDirEntry entry = new GDFDirEntry {
+                  Name = str.Substring(str.LastIndexOf(@"\") + 1),
+                  NameLength = (byte) str.Substring(str.LastIndexOf(@"\") + 1).Length,
+                  Attributes = GDFDirEntryAttrib.Directory,
+                  SubDir = new GDFDirTable()
+               };
                 entry.SubDir.Parent = entry;
                 entry.Parent = t;
                 t.Add(entry);
-                buildTables(ref entry.SubDir, str);
+                BuildTables(ref entry.SubDir, str);
             }
             foreach (string str2 in files)
             {
                 if (!str2.EndsWith("i2g.iso"))
                 {
-                    GDFDirEntry entry2;
-                    entry2 = new GDFDirEntry {
-                        Name = str2.Substring(str2.LastIndexOf(@"\") + 1),
-                        NameLength = (byte) str2.Substring(str2.LastIndexOf(@"\") + 1).Length,
-                        Attributes = GDFDirEntryAttrib.Normal,
-                        SubDir = null,
-                        Parent = t
-                    };
+                   GDFDirEntry entry2 = new GDFDirEntry {
+                      Name = str2.Substring(str2.LastIndexOf(@"\") + 1),
+                      NameLength = (byte) str2.Substring(str2.LastIndexOf(@"\") + 1).Length,
+                      Attributes = GDFDirEntryAttrib.Normal,
+                      SubDir = null,
+                      Parent = t
+                   };
                     try
                     {
                         uint.TryParse(File.ReadAllText(str2, Encoding.ASCII), out entry2.Size);
@@ -199,7 +197,7 @@
                     t.Add(entry2);
                 }
             }
-            tables.Add(t);
+            _tables.Add(t);
         }
 
         private void calcPath(GDFDirTable t, GDFDirEntry e, ref string path)
@@ -224,62 +222,62 @@
 
         public void Dispose()
         {
-            src = null;
-            root = null;
-            tables.Clear();
+            _src = null;
+            _root = null;
+            _tables.Clear();
             GC.Collect();
         }
 
         public void ExtractGDF()
         {
-            Queue<GDFStreamEntry> fileSystem = src.GetFileSystem(src.RootDir);
+            Queue<GDFStreamEntry> fileSystem = _src.GetFileSystem(_src.RootDir);
             while (fileSystem.Count > 0)
             {
                 GDFStreamEntry entry = fileSystem.Dequeue();
                 string str = entry.Path.Substring(2, entry.Path.Length - 2);
                 if (entry.Entry.IsDirectory)
                 {
-                    if (!Directory.Exists(path + str))
+                    if (!Directory.Exists(_path + str))
                     {
-                        Directory.CreateDirectory(path + str);
+                        Directory.CreateDirectory(_path + str);
                     }
                 }
                 else
                 {
-                    File.WriteAllText(path + str, entry.Entry.Size.ToString());
+                    File.WriteAllText(_path + str, entry.Entry.Size.ToString());
                 }
             }
         }
 
         public void GenerateGDF()
         {
-            tables = new List<GDFDirTable>();
-            root = new GDFDirTable();
-            buildTables(ref root, path);
+            _tables = new List<GDFDirTable>();
+            _root = new GDFDirTable();
+            BuildTables(ref _root, _path);
             updateTableSectors();
         }
 
         private uint sizeToSectors(uint size)
         {
-            return (uint) Math.Ceiling(size / ((double) src.VolDesc.SectorSize));
+            return (uint) Math.Ceiling(size / ((double) _src.VolDesc.SectorSize));
         }
 
         private void updateTableSectors()
         {
             freeSector = 0x24;
-            for (int i = tables.Count - 1; i >= 0; i--)
+            for (int i = _tables.Count - 1; i >= 0; i--)
             {
-                tables[i].CalcSize();
-                tables[i].Sector = freeSector;
-                if (tables[i].Parent != null)
+                _tables[i].CalcSize();
+                _tables[i].Sector = freeSector;
+                if (_tables[i].Parent != null)
                 {
-                    tables[i].Parent.Sector = freeSector;
+                    _tables[i].Parent.Sector = freeSector;
                 }
-                freeSector += sizeToSectors(tables[i].Size);
+                freeSector += sizeToSectors(_tables[i].Size);
             }
-            for (int j = tables.Count - 1; j >= 0; j--)
+            for (int j = _tables.Count - 1; j >= 0; j--)
             {
-                foreach (GDFDirEntry entry in tables[j])
+                foreach (GDFDirEntry entry in _tables[j])
                 {
                     if (!entry.IsDirectory)
                     {
@@ -287,26 +285,26 @@
                         freeSector += sizeToSectors(entry.Size);
                     }
                 }
-                tables[j].CreateBST();
+                _tables[j].CreateBST();
             }
         }
 
         public void WriteData(CBinaryWriter bw)
         {
-            for (int i = tables.Count - 1; i >= 0; i--)
+            for (int i = _tables.Count - 1; i >= 0; i--)
             {
-                foreach (GDFDirEntry entry in tables[i])
+                foreach (GDFDirEntry entry in _tables[i])
                 {
                     if (!entry.IsDirectory)
                     {
                         string path = "";
-                        calcPath(tables[i], entry, ref path);
+                        calcPath(_tables[i], entry, ref path);
                         if (path.StartsWith(@"\"))
                         {
                             path = path.Remove(0, 1);
                         }
-                        bw.Seek(entry.Sector * src.VolDesc.SectorSize, SeekOrigin.Begin);
-                        src.WriteFileToStream(path, bw);
+                        bw.Seek(entry.Sector * _src.VolDesc.SectorSize, SeekOrigin.Begin);
+                        _src.WriteFileToStream(path, bw);
                     }
                 }
             }
@@ -317,11 +315,11 @@
         {
             MemoryStream ms = new MemoryStream();
             ms.Seek(0x12000L, SeekOrigin.Begin);
-            for (int i = tables.Count - 1; i >= 0; i--)
+            for (int i = _tables.Count - 1; i >= 0; i--)
             {
-                if (tables[i].Size > 0)
+                if (_tables[i].Size > 0)
                 {
-                    byte[] buffer = tables[i].ToByteArray();
+                    byte[] buffer = _tables[i].ToByteArray();
                     ms.Write(buffer, 0, buffer.Length);
                 }
             }
@@ -340,13 +338,13 @@
             writer.Seek(0x8000L, SeekOrigin.Begin);
             writer.Write(gdf_sector);
             writer.Seek(0x10000L, SeekOrigin.Begin);
-            writer.Write(src.VolDesc.Identifier);
-            writer.Write(tables[tables.Count - 1].Sector);
-            writer.Write(sizeToSectors(tables[tables.Count - 1].Size) * src.VolDesc.SectorSize);
-            writer.Write(src.VolDesc.ImageCreationTime);
+            writer.Write(_src.VolDesc.Identifier);
+            writer.Write(_tables[_tables.Count - 1].Sector);
+            writer.Write(sizeToSectors(_tables[_tables.Count - 1].Size) * _src.VolDesc.SectorSize);
+            writer.Write(_src.VolDesc.ImageCreationTime);
             writer.Write((byte) 1);
             writer.Seek(0x107ecL, SeekOrigin.Begin);
-            writer.Write(src.VolDesc.Identifier);
+            writer.Write(_src.VolDesc.Identifier);
             writer.Close();
         }
 
